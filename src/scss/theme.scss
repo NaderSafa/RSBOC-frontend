@@ -1,12 +1,12 @@
-@import "./icons.scss";
+@import './icons.scss';
 
 // Dark Theme
 // @import "./bootstrap-dark.scss";
 // @import "./app-dark.scss";
 
 // Light Theme
-@import "./bootstrap.scss";
-@import "./app.scss";
+@import './bootstrap.scss';
+@import './app.scss';
 
 // RTL Mode
 // @import "./rtl/bootstrap-rtl";
@@ -38,11 +38,11 @@ body {
 
 .fa,
 .fas {
-  font-family: "Font Awesome 5 Free";
+  font-family: 'Font Awesome 5 Free';
   font-weight: 900;
 }
-[class*=" ti-"],
-[class^="ti-"] {
+[class*=' ti-'],
+[class^='ti-'] {
   font-family: themify;
   speak: none;
   font-style: normal;
@@ -262,10 +262,10 @@ label {
 }
 .wizard .steps .nav-link {
   background-color: #daddf5;
-  color: #626ed4;
+  color: #025f97;
 }
 .wizard .steps .nav-link .number {
-  border-color: #626ed4;
+  border-color: #025f97;
 }
 
 .apexcharts-canvas {
@@ -276,7 +276,7 @@ label {
 
 // RightSidebar
 
-.radio-toolbar input[type="radio"] {
+.radio-toolbar input[type='radio'] {
   opacity: 0;
   position: fixed;
   width: 0;
@@ -289,7 +289,7 @@ label {
   font-size: 14px;
   border-radius: 4px;
 }
-.radio-toolbar input[type="radio"]:checked + label {
+.radio-toolbar input[type='radio']:checked + label {
   background-color: $primary;
   border: none;
   color: $white;
@@ -317,9 +317,9 @@ label {
 
 .faq.accordion-button {
   &:after {
-    content: "\F0377";
+    content: '\F0377';
     display: block;
-    font-family: "Material Design Icons";
+    font-family: 'Material Design Icons';
     font-size: 20px;
     color: $text-muted;
     position: absolute;
@@ -331,7 +331,7 @@ label {
   }
 
   &.collapsed::after {
-    content: "\F0419";
+    content: '\F0419';
   }
 }
 
@@ -415,11 +415,12 @@ label {
   border-radius: 4px !important;
 }
 
-.css-1n7v3ny-option{
+.css-1n7v3ny-option {
   background-color: $primary !important;
   color: $white !important;
 }
 
-.select2-selection__menu-list, .css-4ljt47-MenuList{
+.select2-selection__menu-list,
+.css-4ljt47-MenuList {
   background-color: $input-bg !important;
 }
