@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 // COMMENT NEXT 2 LINES TO SWITCH TO LOCAL BACKEND
-const IP = 'rsboc-backend.vercel.app/api'
+const IP = 'api.padashboard.ca'
 const API_URL = `https://${IP}`
 
 // UNCOMMENT NEXT 2 LINES TO SWITCH TO LOCAL BACKEND

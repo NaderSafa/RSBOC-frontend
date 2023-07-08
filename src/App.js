@@ -1,24 +1,60 @@
-import logo from './logo.svg'
+import { useContext, useEffect } from 'react'
+import { RouterProvider } from 'react-router-dom'
+import { Row, Spinner } from 'reactstrap'
+import { AuthenticationContext } from './Auth/authentication.context'
+import server from './server'
+
+import { router } from './Routes'
+
 import './App.css'
+import './scss/theme.scss'
 
 function App() {
+  const { isLoading, setUser, setIsAdmin, setError, setIsLoading } = useContext(
+    AuthenticationContext
+  )
+
+  const token = localStorage.getItem('accessToken')
+  const getUser = () => {
+    server
+      .get('/users', { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => {
+        setIsAdmin(response.data.user.role === 'admin' ? true : false)
+        setUser(response.data.user)
+        setError(null)
+        setIsLoading(false)
+      })
+      .catch((e) => {
+        // setUser(null)
+        // if (e.response.status === 401) {
+        //   setUser(null)
+        //   console.log('catched error')
+        // }
+        setIsLoading(false)
+      })
+  }
+
+  useEffect(() => {
+    setIsLoading(false)
+    if (token) {
+      setIsLoading(true)
+      getUser()
+    }
+  }, [])
+
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
+    <>
+      {isLoading ? (
+        <Row
+          className='justify-content-center align-items-center'
+          style={{ height: '100vh' }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Spinner color='primary' />
+        </Row>
+      ) : (
+        <RouterProvider className='App' router={router} />
+      )}
+    </>
   )
 }
 
