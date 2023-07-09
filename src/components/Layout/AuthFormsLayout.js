@@ -23,7 +23,7 @@ const AuthFormsLayout = (props) => {
 
                     <p className='text-white-50'>{props.subtitle}</p>
                     <Link to='/' className='logo logo-admin'>
-                      <img src={logoSm} height='30' alt='logo' />
+                      <img src={logoSm} height='50' alt='logo' />
                     </Link>
                   </div>
                 </div>

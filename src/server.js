@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 // COMMENT NEXT 2 LINES TO SWITCH TO LOCAL BACKEND
-const IP = 'api.padashboard.ca'
+const IP = 'rsboc-backend.vercel.app/api'
 const API_URL = `https://${IP}`
 
 // UNCOMMENT NEXT 2 LINES TO SWITCH TO LOCAL BACKEND
@@ -13,7 +13,7 @@ export { API_URL }
 
 // Return a custom axios instance
 const server = axios.create({
-  baseURL: `${API_URL}`,
+  baseURL: 'https://rsboc-backend.vercel.app/api',
   headers: {
     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
   },

@@ -43,7 +43,7 @@ export const AuthenticationContextProvider = ({ children }) => {
     setIsLoading(true)
 
     server
-      .post('/users/signin', {
+      .post('/users/login', {
         email: email,
         password: password,
       })

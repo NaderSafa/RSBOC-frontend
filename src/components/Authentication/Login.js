@@ -68,7 +68,7 @@ const Login = (props) => {
         <>
           <AuthFormsLayout
             title='Welcome Back !'
-            subtitle='Sign in to continue to Speedball Hub.'
+            subtitle='Login to continue to Speedball Hub.'
           >
             <Form
               className='mt-4'
@@ -173,7 +173,7 @@ const Login = (props) => {
             <p>
               Don&#39;t have an account ?
               <Link to='/register' className='fw-medium text-primary'>
-                &nbsp;Signup now
+                &nbsp;Register now
               </Link>
             </p>
           </div>

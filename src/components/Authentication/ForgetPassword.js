@@ -112,7 +112,7 @@ const ForgetPasswordPage = (props) => {
         <p>
           Remember It ?
           <Link to='/login' className='fw-medium text-primary'>
-            &nbsp;Sign In here
+            &nbsp;Login here
           </Link>
         </p>
       </div>
