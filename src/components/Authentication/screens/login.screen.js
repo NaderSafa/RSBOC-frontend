@@ -24,7 +24,7 @@ const LoginScreen = () => {
   return (
     <AuthContainer>
       <div>
-        <h2 className='text-center text-color font-semibold text-base outline-none'>
+        <h2 className='text-center text-color font-semibold text-base outline-none text-black'>
           Welcome Back !
         </h2>
         <p className='text-center text-sm mt-2'>

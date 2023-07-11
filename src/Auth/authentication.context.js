@@ -84,6 +84,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         summary: 'Error in Registering',
         detail: 'The passwords you entered do not match',
       })
+      setIsLoading(false)
       return
     }
     server

@@ -18,12 +18,12 @@ const AuthContainer = ({ children }) => {
         )
       ) : (
         <div className='grid h-screen w-screen m-0'>
-          <div className='flex flex-column justify-content-between col-12 md:col-6 lg:col-4 xl:col-3 h-screen p-5 bg-white'>
-            <div className='text-center my-3'>
+          <div className='flex flex-column justify-content-between col-12 md:col-6 lg:col-4 xl:col-3 h-screen p-5 bg-white overflow-scroll'>
+            <div className='text-center mt-3 mb-4'>
               <Image src={logoHorizontal} width='70%' />
             </div>
             {children}
-            <div>
+            <div className='mt-2'>
               <p className='text-center text-sm mb-0'>
                 &copy; {new Date().getFullYear()} - Speedball Hub
               </p>
