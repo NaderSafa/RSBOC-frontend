@@ -1,9 +1,9 @@
 import { Button } from 'primereact/button'
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
-import AuthInput from '../../shared/input.component'
+import AuthInput from '../components/auth-input.component'
 import { AuthenticationContext } from '../../../Auth/authentication.context'
-import AuthContainer from '../container/auth.container'
+import AuthContainer from '../containers/auth.container'
 
 const RegisterScreen = () => {
   const [fullName, setFullName] = useState('')
@@ -42,6 +42,7 @@ const RegisterScreen = () => {
             type='text'
             setInputError={setInputError}
             placeholder='Full name'
+            required={true}
           />
           <AuthInput
             state={email}

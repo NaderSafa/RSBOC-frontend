@@ -5,13 +5,16 @@ import '../../scss/custom/components/pharmacy-profile.scss'
 import { Container, Row, Col, Card, CardBody, Label } from 'reactstrap'
 import { AuthenticationContext } from '../../Auth/authentication.context'
 import { useLocation, useParams } from 'react-router-dom'
-import { ToastPopUp } from '../shared/utils'
+import { ToastPopUp } from '../../components/shared/utils'
 import { Column } from 'primereact/column'
 import { DataTable } from 'primereact/datatable'
 import { Toolbar } from 'primereact/toolbar'
 import { Dialog } from 'primereact/dialog'
 import { Button } from 'primereact/button'
-import { DropDownTemplate, InputFieldTemplate } from '../shared/FilterTemplates'
+import {
+  DropDownTemplate,
+  InputFieldTemplate,
+} from '../../components/shared/FilterTemplates'
 
 const PharmacyProfile = (props) => {
   document.title = 'Profile | Speedball Hub'

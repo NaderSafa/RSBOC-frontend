@@ -1,34 +1,28 @@
 import { createBrowserRouter } from 'react-router-dom'
 import MainLayout from '../components/Layout'
-import Login from '../components/Authentication/Login'
-import Register from '../components/Authentication/Register'
-
 import PrivateRoutes from '../Routes/PrivateRoutes'
-import UserProfile from '../components/Authentication/UserProfile'
 import AdminDashboard from '../Routes/AdminDashboard'
 import Pages404 from '../pages/utility/pages-404'
-import Logout from '../components/Authentication/Logout'
-import ForgetPasswordPage from '../components/Authentication/ForgetPassword'
 import Dashboard from '../components/Dashboard'
 import OrderDetails from '../components/orders/OrderDetails'
-import CreatePassword from '../components/Authentication/CreatePassword'
-import ChangePassword from '../components/Authentication/ChangePassword'
 import AdminOrders from '../components/orders/AdminOrders'
 import MoleculesTable from '../components/Reports/Molecules/MoleculesTable'
 // import GenerateReport from '../components/Reports/GenerateReport'
-import PharmacyProfile from '../components/Authentication/PharmacyProfile'
 import PharmaciesTable from '../components/Pharmacies/PharmaciesTable'
 import AdminsTable from '../components/Administrators/AdminsTable'
 import PharmacyOrders from '../components/orders/PharmacyOrders'
-// import SessionTimeOut from '../components/Authentication/SessionTimeOut'
+// import SessionTimeOut from '../features/Authentication/SessionTimeOut'
 import MoleculesReport from '../components/Reports/MoleculesReport'
 import MoleculeHistory from '../components/Reports/Molecules/MoleculeHistory'
 import PharmacyDashboard from '../components/Dashboard/PharmacyDashboard'
 import ManufacturersAdmin from '../components/Reports/Manufacturers/ManufacturersAdmin'
 import ManufacturersPharmacy from '../components/Reports/Manufacturers/ManufacturersPharmacy'
 import AdminUploadFile from '../components/Upload/AdminUploadFile'
-import LoginScreen from '../components/Authentication/screens/login.screen'
-import RegisterScreen from '../components/Authentication/screens/register.screen'
+import UserProfile from '../features/Authentication/UserProfile'
+import PharmacyProfile from '../features/Authentication/PharmacyProfile'
+import LoginScreen from '../features/Authentication/screens/login.screen'
+import RegisterScreen from '../features/Authentication/screens/register.screen'
+import Logout from '../features/Authentication/Logout'
 
 export const router = createBrowserRouter([
   {
@@ -119,32 +113,8 @@ export const router = createBrowserRouter([
     element: <LoginScreen />,
   },
   {
-    path: '/loginOld',
-    element: <Login />,
-  },
-  {
     path: '/register',
     element: <RegisterScreen />,
-  },
-  {
-    path: '/registerOld',
-    element: <Register />,
-  },
-  {
-    path: '/create-password',
-    element: <CreatePassword />,
-  },
-  // {
-  //   path: '/session-timeout',
-  //   element: <SessionTimeOut />,
-  // },
-  {
-    path: '/forget-password',
-    element: <ForgetPasswordPage />,
-  },
-  {
-    path: '/change-password',
-    element: <ChangePassword />,
   },
   {
     path: '/logout',

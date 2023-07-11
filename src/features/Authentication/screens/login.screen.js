@@ -2,10 +2,9 @@ import { Button } from 'primereact/button'
 import { Checkbox } from 'primereact/checkbox'
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
-import AuthInput from '../../shared/input.component'
+import AuthInput from '../components/auth-input.component'
 import { AuthenticationContext } from '../../../Auth/authentication.context'
-import AuthContainer from '../container/auth.container'
-import { Divider } from 'primereact/divider'
+import AuthContainer from '../containers/auth.container'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
