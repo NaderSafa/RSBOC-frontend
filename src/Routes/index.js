@@ -20,9 +20,11 @@ import ManufacturersPharmacy from '../components/Reports/Manufacturers/Manufactu
 import AdminUploadFile from '../components/Upload/AdminUploadFile'
 import UserProfile from '../features/Authentication/UserProfile'
 import PharmacyProfile from '../features/Authentication/PharmacyProfile'
+
+// authentication screens
 import LoginScreen from '../features/Authentication/screens/login.screen'
 import RegisterScreen from '../features/Authentication/screens/register.screen'
-import Logout from '../features/Authentication/Logout'
+import LogoutScreen from '../features/Authentication/screens/logout.screen'
 
 export const router = createBrowserRouter([
   {
@@ -118,6 +120,6 @@ export const router = createBrowserRouter([
   },
   {
     path: '/logout',
-    element: <Logout />,
+    element: <LogoutScreen />,
   },
 ])

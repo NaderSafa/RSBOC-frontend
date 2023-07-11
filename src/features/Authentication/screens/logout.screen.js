@@ -1,9 +1,9 @@
 import React, { useEffect, useContext } from 'react'
 import { Navigate } from 'react-router-dom'
 
-import { AuthenticationContext } from '../../Auth/authentication.context'
+import { AuthenticationContext } from '../../../Auth/authentication.context'
 
-const Logout = () => {
+const LogoutScreen = () => {
   const { onLogout } = useContext(AuthenticationContext)
 
   useEffect(() => {
@@ -17,4 +17,4 @@ const Logout = () => {
   )
 }
 
-export default Logout
+export default LogoutScreen

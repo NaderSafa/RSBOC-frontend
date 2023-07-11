@@ -5,7 +5,9 @@ import server from '../server'
 import { ToastPopUp } from '../components/shared/utils'
 
 const PrivateRoutes = () => {
-  const { user, setUser, setToastStatus } = useContext(AuthenticationContext)
+  const { user, setUser, setToastStatus, toast } = useContext(
+    AuthenticationContext
+  )
   const [sessionExpired, setSessionExpired] = useState(false)
 
   const navigate = useNavigate()
@@ -13,10 +15,10 @@ const PrivateRoutes = () => {
   useEffect(() => {
     return () => {
       if (sessionExpired) {
-        setToastStatus({
-          toastStatus: 'error',
+        toast.current.show({
+          severity: 'error',
           summary: 'Session Expired',
-          msg: 'Your session expired, Please login again.',
+          detail: 'Your session expired, Please login again.',
         })
         navigate('./login')
       }

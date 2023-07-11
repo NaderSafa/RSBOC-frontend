@@ -1,12 +1,35 @@
 import { Image } from 'primereact/image'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import logoHorizontal from '../../../assets/images/logo-h.png'
-import background from '../../../assets/images/background.jpg'
+import background1 from '../../../assets/images/background-1.jpg'
+import background2 from '../../../assets/images/background-2.jpg'
+import background3 from '../../../assets/images/background-3.jpg'
 import { Navigate } from 'react-router-dom'
 import { AuthenticationContext } from '../../../Auth/authentication.context'
 
 const AuthContainer = ({ children }) => {
   const { user, isAdmin } = useContext(AuthenticationContext)
+  const [shownBackground, setShownBackground] = useState(background1)
+
+  const backgroundList = [background1, background2, background3]
+
+  function getRandomNumber(num) {
+    // Get a random number between 0 and 1.
+    let randomNumber = Math.random()
+
+    // Multiply the random number by 3.
+    randomNumber = randomNumber * num
+
+    // Round the random number to the nearest integer.
+    randomNumber = Math.floor(randomNumber)
+
+    // Return the random number.
+    return randomNumber + 1
+  }
+
+  // setInterval(() => {
+  //   setShownBackground(backgroundList[getRandomNumber(3)])
+  // }, 5000)
 
   return (
     <>
@@ -31,7 +54,7 @@ const AuthContainer = ({ children }) => {
           </div>
           <div
             className='hidden md:inline-block col h-screen overflow-scroll bg-cover bg-center bg-black-alpha-90 p-0'
-            style={{ backgroundImage: `url(${background})` }}
+            style={{ backgroundImage: `url(${background2})` }}
           >
             <div className='flex flex-column bg-white-alpha-50 col h-screen justify-content-end align-items-center px-5 pt-8 pb-3'>
               <h1 className='text-3xl text-center font-bold text-black-alpha-40 '>
