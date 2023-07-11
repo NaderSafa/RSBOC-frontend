@@ -27,6 +27,8 @@ import PharmacyDashboard from '../components/Dashboard/PharmacyDashboard'
 import ManufacturersAdmin from '../components/Reports/Manufacturers/ManufacturersAdmin'
 import ManufacturersPharmacy from '../components/Reports/Manufacturers/ManufacturersPharmacy'
 import AdminUploadFile from '../components/Upload/AdminUploadFile'
+import LoginScreen from '../components/Authentication/screens/login.screen'
+import RegisterScreen from '../components/Authentication/screens/register.screen'
 
 export const router = createBrowserRouter([
   {
@@ -114,10 +116,18 @@ export const router = createBrowserRouter([
   },
   {
     path: '/login',
+    element: <LoginScreen />,
+  },
+  {
+    path: '/loginOld',
     element: <Login />,
   },
   {
     path: '/register',
+    element: <RegisterScreen />,
+  },
+  {
+    path: '/registerOld',
     element: <Register />,
   },
   {

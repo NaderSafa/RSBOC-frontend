@@ -1,5 +1,5 @@
 //  0 - import required functions and variables
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useRef, useState } from 'react'
 import server from '../server'
 
 //  1 - create context
@@ -20,6 +20,8 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [error, setError] = useState(null)
   const [isAdmin, setIsAdmin] = useState(null)
   const [toastStatus, setToastStatus] = useState({})
+
+  const toast = useRef()
 
   let catchErr = () => {
     setToastStatus({
@@ -55,7 +57,6 @@ export const AuthenticationContextProvider = ({ children }) => {
           .then((response) => {
             setIsAdmin(response.data.user.role === 'admin' ? true : false)
             setUser(response.data.user)
-            setError(null)
             setIsLoading(false)
           })
         // save access token
@@ -64,48 +65,50 @@ export const AuthenticationContextProvider = ({ children }) => {
       })
       .catch((error) => {
         console.log(error.response.data.message)
-        setToastStatus({
-          toastStatus: 'error',
-          msg: error.response.data.message,
+        toast.current.show({
+          severity: 'error',
+          summary: 'Error in Login',
+          detail: error.response.data.message,
         })
-        // setTimeout(() => {
-        //   setToastStatus({})
-        // }, 3000)
-        setError(error.response.data.message)
+
         setIsLoading(false)
       })
   }
 
   //      2.2.1.2 - handle register
-  const onRegister = (name, email, pharmacyname) => {
+  const onRegister = (name, email, password, repeatedPassword) => {
+    setIsLoading(true)
+    if (password !== repeatedPassword) {
+      toast.current.show({
+        severity: 'error',
+        summary: 'Error in Registering',
+        detail: 'The passwords you entered do not match',
+      })
+      return
+    }
     server
-      .post('/users/signup', {
-        displayName: name,
+      .post('/users/register', {
+        full_name: name,
         email: email,
-        name: pharmacyname,
+        password: password,
       })
       .then((response) => {
-        console.log(response)
-        setError(null)
-        setToastStatus({
-          toastStatus: 'success',
-          msg: response.data.message,
+        // console.log(response.data)
+        toast.current.show({
+          severity: 'success',
+          summary: 'User Created',
+          detail: response.data.message,
         })
-        // setTimeout(() => {
-        //   setToastStatus({})
-        // }, 3000)
-        setIsLoading(false)
+
+        onLogin(email, password)
       })
       .catch((error) => {
-        setError(error.response.data.message)
-        setToastStatus({
-          toastStatus: 'error',
-          msg: error.response.data.message,
+        console.log(error)
+        toast.current.show({
+          severity: 'error',
+          summary: 'Error in Registering',
+          detail: error.response.data.message,
         })
-        // setTimeout(() => {
-        //   setToastStatus({})
-        // }, 3000)
-        setIsLoading(false)
       })
   }
 
@@ -344,6 +347,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         error,
         isAdmin,
         isLoading,
+        toast,
         accessToken,
         toastStatus,
         setIsAdmin,

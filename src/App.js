@@ -8,9 +8,10 @@ import { router } from './Routes'
 
 import './App.css'
 import './scss/theme.scss'
+import { Toast } from 'primereact/toast'
 
 function App() {
-  const { isLoading, setUser, setIsAdmin, setError, setIsLoading } = useContext(
+  const { toast, setUser, setIsAdmin, setError, setIsLoading } = useContext(
     AuthenticationContext
   )
 
@@ -44,16 +45,8 @@ function App() {
 
   return (
     <>
-      {isLoading ? (
-        <Row
-          className='justify-content-center align-items-center'
-          style={{ height: '100vh' }}
-        >
-          <Spinner color='primary' />
-        </Row>
-      ) : (
-        <RouterProvider className='App' router={router} />
-      )}
+      <RouterProvider className='App' router={router} />
+      <Toast ref={toast} />
     </>
   )
 }
