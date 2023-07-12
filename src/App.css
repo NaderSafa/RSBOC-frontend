@@ -74,81 +74,10 @@
 .calender-clear-btn {
   display: none;
 }
-
-/* sidebar */
-/* .p-sidebar,
-.p-panelmenu,
-.p-tree {
-  background-color: #233240;
-  box-shadow: none;
-  border: none;
-  border-radius: 0px;
-  margin: 0px;
-  padding: 0px;
-  color: #fff;
-} */
-
-/* .p-panelmenu,
-.my-panel .p-panelmenu-header,
-.p-panelmenu-content,
-.p-submenu-list,
-.p-menuitem {
-  background-color: #233240 !important;
-  box-shadow: none !important;
-  border: none !important;
-} */
-
-/* .p-panelmenu .p-panelmenu-header > a {
-  background-color: inherit;
-  border: none;
-  color: #fff;
+input {
+  border-width: 0 !important;
 }
 
-.p-panelmenu .p-panelmenu-header.p-highlight > a {
-  background-color: inherit;
-  border: none;
-  color: #fff;
+a {
+  text-decoration: none;
 }
-
-.p-panelmenu .p-panelmenu-header.p-highlight:not(.p-disabled) > a:hover {
-  border: none;
-  background: inherit;
-  color: #fff;
-}
-
-.p-panelmenu .p-panelmenu-header > a:focus {
-  box-shadow: none;
-}
-
-.p-link:focus {
-  box-shadow: none;
-}
-
-.p-panelmenu .p-panelmenu-header:not(.p-highlight):not(.p-disabled) > a:hover {
-  color: #616ed3;
-  background-color: transparent;
-}
-
-.p-panelmenu .p-icon {
-  display: none;
-}
-
-.p-tree
-  .p-tree-container
-  .p-treenode
-  .p-treenode-content
-  .p-tree-toggler:focus {
-  box-shadow: none;
-}
-
-.p-tree .p-tree-container .p-treenode .p-treenode-content:focus {
-  box-shadow: none;
-} */
-
-/* .p-tree
-  .p-tree-container
-  .p-treenode
-  .p-treenode-content.p-treenode-selectable:not(.p-highlight):hover {
-  background-color: transparent;
-  color: #616ed3;
-} */

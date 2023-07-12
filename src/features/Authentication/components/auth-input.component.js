@@ -30,7 +30,7 @@ function AuthInput(props) {
   return (
     <>
       <span
-        className='p-input-icon-left p-input-icon-right w-full border-1 border-round-sm border-100 mt-3'
+        className='p-input-icon-left p-input-icon-right w-full border-1 border-round-sm border-100 mt-3 outline-none'
         onClick={() => inputRef.current.focus()}
       >
         <i
@@ -48,7 +48,7 @@ function AuthInput(props) {
               ? props.placeholder
               : props.type.slice(0, 1).toUpperCase() + props.type.slice(1)
           }
-          className='w-full text-sm font-medium py-3 pl-6 border-0 bg-transparent'
+          className='w-full text-sm font-medium py-3 pl-6 border-0 bg-transparent outline-none '
           ref={inputRef}
           type={passwordShown === true ? 'text' : props.type}
           value={props.state}

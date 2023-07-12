@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { Toast } from 'primereact/toast'
 import server from '../../server'
-import '../../scss/custom/components/pharmacy-profile.scss'
+// import '../../scss/custom/components/pharmacy-profile.scss'
 import { Container, Row, Col, Card, CardBody, Label } from 'reactstrap'
 import { AuthenticationContext } from '../../Auth/authentication.context'
 import { useLocation, useParams } from 'react-router-dom'

@@ -39,7 +39,21 @@ const PrivateRoutes = () => {
     }
   )
 
-  return <Fragment>{user ? <Outlet /> : <Navigate to='/login' />}</Fragment>
+  return (
+    <Fragment>
+      {
+        user ? (
+          <Outlet />
+        ) : window.location.href.endsWith('.com/') ||
+          window.location.href.endsWith('3000/') ? (
+          <Navigate to='/login' />
+        ) : (
+          <p>this is a private route please sign in to continue</p>
+        )
+        // : <Navigate to='/login' />
+      }
+    </Fragment>
+  )
 }
 
 export default PrivateRoutes

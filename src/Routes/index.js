@@ -25,6 +25,10 @@ import PharmacyProfile from '../features/Authentication/PharmacyProfile'
 import LoginScreen from '../features/Authentication/screens/login.screen'
 import RegisterScreen from '../features/Authentication/screens/register.screen'
 import LogoutScreen from '../features/Authentication/screens/logout.screen'
+import ChampionshipsScreen from '../features/championships/screens/championships.screen'
+import PlayersScreen from '../features/players/screens/players.screen'
+import ChampionshipScreen from '../features/championships/screens/championship.screen'
+import PlayerScreen from '../features/players/screens/player.screen'
 
 export const router = createBrowserRouter([
   {
@@ -36,11 +40,23 @@ export const router = createBrowserRouter([
         path: '',
         element: <MainLayout />,
         children: [
-          { index: true, element: <PharmacyDashboard /> },
-          { path: 'profile', element: <UserProfile /> },
-          { path: 'orders', element: <PharmacyOrders /> },
-          { path: 'orders/:orderId', element: <OrderDetails /> },
-          { path: 'manufacturers', element: <ManufacturersPharmacy /> },
+          {
+            path: '',
+            children: [
+              { index: true, element: <PharmacyDashboard /> },
+              { path: 'profile', element: <UserProfile /> },
+              { path: 'players', element: <PlayersScreen /> },
+              { path: 'players/:playerId', element: <PlayerScreen /> },
+              { path: 'championships', element: <ChampionshipsScreen /> },
+              {
+                path: 'championships/:championshipId',
+                element: <ChampionshipScreen />,
+              },
+              { path: 'orders', element: <PharmacyOrders /> },
+              { path: 'orders/:orderId', element: <OrderDetails /> },
+              { path: 'manufacturers', element: <ManufacturersPharmacy /> },
+            ],
+          },
           {
             path: 'admin',
             element: <AdminDashboard />,

@@ -1,6 +1,7 @@
 import { Image } from 'primereact/image'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import logoHorizontal from '../../../assets/images/logo-h.png'
+import background0 from '../../../assets/images/background-0.jpg'
 import background1 from '../../../assets/images/background-1.jpg'
 import background2 from '../../../assets/images/background-2.jpg'
 import background3 from '../../../assets/images/background-3.jpg'
@@ -11,7 +12,7 @@ const AuthContainer = ({ children }) => {
   const { user, isAdmin } = useContext(AuthenticationContext)
   const [shownBackground, setShownBackground] = useState(background1)
 
-  const backgroundList = [background1, background2, background3]
+  const backgroundList = [background0, background1, background2, background3]
 
   function getRandomNumber(num) {
     // Get a random number between 0 and 1.
@@ -24,11 +25,19 @@ const AuthContainer = ({ children }) => {
     randomNumber = Math.floor(randomNumber)
 
     // Return the random number.
-    return randomNumber + 1
+    return randomNumber
   }
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setShownBackground(backgroundList[getRandomNumber(backgroundList.length)])
+    }, 3000)
+
+    return () => clearInterval(intervalId)
+  }, [])
+
   // setInterval(() => {
-  //   setShownBackground(backgroundList[getRandomNumber(3)])
+  //   setShownBackground()
   // }, 5000)
 
   return (
@@ -54,7 +63,7 @@ const AuthContainer = ({ children }) => {
           </div>
           <div
             className='hidden md:inline-block col h-screen overflow-scroll bg-cover bg-center bg-black-alpha-90 p-0'
-            style={{ backgroundImage: `url(${background2})` }}
+            style={{ backgroundImage: `url(${shownBackground})` }}
           >
             <div className='flex flex-column bg-white-alpha-50 col h-screen justify-content-end align-items-center px-5 pt-8 pb-3'>
               <h1 className='text-3xl text-center font-bold text-black-alpha-40 '>

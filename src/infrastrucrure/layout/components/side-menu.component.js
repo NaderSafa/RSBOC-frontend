@@ -1,127 +1,84 @@
 import React from 'react'
-import { PanelMenu } from 'primereact/panelmenu'
+import { useNavigate } from 'react-router-dom'
 
-export default function SideMenu() {
-  const items = [
-    {
-      label: 'File',
-      icon: 'pi pi-fw pi-file',
-      items: [
-        {
-          label: 'New',
-          icon: 'pi pi-fw pi-plus',
-          items: [
-            {
-              label: 'Bookmark',
-              icon: 'pi pi-fw pi-bookmark',
-            },
-            {
-              label: 'Video',
-              icon: 'pi pi-fw pi-video',
-            },
-          ],
-        },
-        {
-          label: 'Delete',
-          icon: 'pi pi-fw pi-trash',
-        },
-        {
-          label: 'Export',
-          icon: 'pi pi-fw pi-external-link',
-        },
-      ],
-    },
-    {
-      label: 'Edit',
-      icon: 'pi pi-fw pi-pencil',
-      items: [
-        {
-          label: 'Left',
-          icon: 'pi pi-fw pi-align-left',
-        },
-        {
-          label: 'Right',
-          icon: 'pi pi-fw pi-align-right',
-        },
-        {
-          label: 'Center',
-          icon: 'pi pi-fw pi-align-center',
-        },
-        {
-          label: 'Justify',
-          icon: 'pi pi-fw pi-align-justify',
-        },
-      ],
-    },
-    {
-      label: 'Users',
-      icon: 'pi pi-fw pi-user',
-      items: [
-        {
-          label: 'New',
-          icon: 'pi pi-fw pi-user-plus',
-        },
-        {
-          label: 'Delete',
-          icon: 'pi pi-fw pi-user-minus',
-        },
-        {
-          label: 'Search',
-          icon: 'pi pi-fw pi-users',
-          items: [
-            {
-              label: 'Filter',
-              icon: 'pi pi-fw pi-filter',
-              items: [
-                {
-                  label: 'Print',
-                  icon: 'pi pi-fw pi-print',
-                },
-              ],
-            },
-            {
-              icon: 'pi pi-fw pi-bars',
-              label: 'List',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      label: 'Events',
-      icon: 'pi pi-fw pi-calendar',
-      items: [
-        {
-          label: 'Edit',
-          icon: 'pi pi-fw pi-pencil',
-          items: [
-            {
-              label: 'Save',
-              icon: 'pi pi-fw pi-calendar-plus',
-            },
-            {
-              label: 'Delete',
-              icon: 'pi pi-fw pi-calendar-minus',
-            },
-          ],
-        },
-        {
-          label: 'Archive',
-          icon: 'pi pi-fw pi-calendar-times',
-          items: [
-            {
-              label: 'Remove',
-              icon: 'pi pi-fw pi-calendar-minus',
-            },
-          ],
-        },
-      ],
-    },
-  ]
+export default function SideMenu({
+  menuCollapsed,
+  setMenuCollapsed,
+  menuItems,
+}) {
+  const navigate = useNavigate()
 
   return (
-    <div className='card flex justify-content-center'>
-      <PanelMenu model={items} className='w-full md:w-25rem' />
-    </div>
+    <>
+      <div className='flex justify-content-between h-full flex-column'>
+        <div>
+          <div
+            className={`transition-colors transition-duration-500 text-black-alpha-80 hover:text-black-alpha-60 flex align-items-center cursor-pointer justify-content-${
+              menuCollapsed ? 'center' : 'left'
+            }`}
+            onClick={() => setMenuCollapsed((prevState) => !prevState)}
+          >
+            <p className='text-xs mr-2'>Main</p>
+            <i
+              className={`pi pi-arrow-circle-${
+                menuCollapsed ? 'right' : 'left'
+              } text-right text-sm cursor-pointer`}
+            />
+          </div>
+          {menuItems?.map((item, idx) => (
+            <div
+              className={`flex surface-overlay overflow-hidden text-overflow-ellipsis white-space-nowrap justify-content-${
+                menuCollapsed ? 'center' : 'start'
+              } align-items-center`}
+              style={{ height: 40 }}
+              key={idx}
+              onClick={item.command}
+            >
+              <div
+                className={`flex align-items-center py-1 cursor-pointer transition-colors text-black-alpha-80 transition-duration-300 hover:text-red-300`}
+              >
+                <i
+                  className={`${item.icon} my-0 ${
+                    menuCollapsed ? 'text-xl' : 'mr-2 text-sm'
+                  }`}
+                />
+                <h3
+                  className={`text-sm my-0 font-medium ${
+                    menuCollapsed ? 'hidden' : 'inline-block'
+                  }`}
+                >
+                  {item.label}
+                </h3>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div
+          className={`flex justify-content-${
+            menuCollapsed ? 'center' : 'start'
+          } align-items-center w-full`}
+          style={{ height: 40 }}
+          onClick={() => navigate('/logout')}
+        >
+          <div
+            className={`flex align-items-center py-1 cursor-pointer transition-colors text-red-400 transition-duration-300 hover:text-red-300`}
+          >
+            <i
+              className={`pi pi-power-off my-0 ${
+                menuCollapsed ? 'text-xl' : 'mr-2 text-sm'
+              }`}
+            />
+            <h3
+              className={`text-sm my-0 ${
+                menuCollapsed ? 'hidden' : 'inline-block'
+              }`}
+            >
+              Logout
+            </h3>
+          </div>
+        </div>
+      </div>
+    </>
   )
 }

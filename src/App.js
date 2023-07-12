@@ -7,7 +7,7 @@ import server from './server'
 import { router } from './Routes'
 
 import './App.css'
-import './scss/theme.scss'
+// import './scss/theme.scss'
 import { Toast } from 'primereact/toast'
 
 function App() {
