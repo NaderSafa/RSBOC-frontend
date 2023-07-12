@@ -27,7 +27,7 @@ export default function SideMenu({
           </div>
           {menuItems?.map((item, idx) => (
             <div
-              className={`flex surface-overlay overflow-hidden text-overflow-ellipsis white-space-nowrap justify-content-${
+              className={`flex overflow-hidden text-overflow-ellipsis white-space-nowrap justify-content-${
                 menuCollapsed ? 'center' : 'start'
               } align-items-center`}
               style={{ height: 40 }}

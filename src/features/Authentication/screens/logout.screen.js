@@ -12,7 +12,7 @@ const LogoutScreen = () => {
 
   return (
     <>
-      <Navigate to='/' />
+      <Navigate to='/login' />
     </>
   )
 }

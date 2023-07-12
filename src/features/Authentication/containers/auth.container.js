@@ -36,10 +36,6 @@ const AuthContainer = ({ children }) => {
     return () => clearInterval(intervalId)
   }, [])
 
-  // setInterval(() => {
-  //   setShownBackground()
-  // }, 5000)
-
   return (
     <>
       {user ? (

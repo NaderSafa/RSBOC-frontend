@@ -99,9 +99,10 @@ export default function TopBar({ menuItems }) {
   return (
     <div className='my-2'>
       <Toolbar
-        className=' flex border-1 border-round-md p-3 lg:px-6 xl:px-8'
+        className='flex border-1 border-round-md p-3 lg:px-6 xl:px-8'
         start={start}
         end={end}
+        style={{ background: '#f5f5f5' }}
       />
     </div>
   )
