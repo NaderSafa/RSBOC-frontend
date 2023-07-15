@@ -46,7 +46,7 @@ const AuthContainer = ({ children }) => {
         )
       ) : (
         <div className='grid h-screen w-screen m-0'>
-          <div className='flex flex-column justify-content-between col-12 md:col-6 lg:col-4 xl:col-3 h-screen p-5 bg-white overflow-scroll'>
+          <div className='flex flex-column justify-content-between col-12 md:col-6 lg:col-4 h-screen p-5 bg-white overflow-scroll'>
             <div className='text-center mt-3 mb-4'>
               <Image src={logoHorizontal} width='70%' />
             </div>

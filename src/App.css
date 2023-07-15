@@ -74,8 +74,14 @@
 .calender-clear-btn {
   display: none;
 }
+
+/* speedballHub */
 input {
   border-width: 0 !important;
+}
+
+.p-dropdown {
+  border: none !important;
 }
 
 a {

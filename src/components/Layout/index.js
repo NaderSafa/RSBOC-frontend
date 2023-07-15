@@ -48,16 +48,14 @@ const MainLayout = () => {
 
       <div className='mx-2 md:mx-4'>
         <TopBar menuItems={menuItems} />
-        {/*<Header />
-        <Sidebar />*/}
         {
-          <div className='grid h-full w-screen'>
+          <div className='grid h-full'>
             <div
               className={`hidden lg:inline-block lg:col-${
                 menuCollapsed ? 1 : 2
               } h-screen overflow-scroll`}
             >
-              <Container>
+              <Container className='h-full'>
                 <SideMenu
                   menuCollapsed={menuCollapsed}
                   setMenuCollapsed={setMenuCollapsed}
@@ -65,7 +63,9 @@ const MainLayout = () => {
                 />
               </Container>
             </div>
-            <div className='col h-screen overflow-scroll'>{/*<Outlet />*/}</div>
+            <div className='col h-screen overflow-scroll'>
+              <Outlet />
+            </div>
           </div>
         }
       </div>

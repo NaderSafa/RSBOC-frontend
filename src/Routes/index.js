@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
             path: '',
             children: [
               { index: true, element: <PharmacyDashboard /> },
-              { path: 'profile', element: <UserProfile /> },
+              { path: 'profile', element: <PlayerScreen /> },
               { path: 'players', element: <PlayersScreen /> },
               { path: 'players/:playerId', element: <PlayerScreen /> },
               { path: 'championships', element: <ChampionshipsScreen /> },
