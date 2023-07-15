@@ -23,13 +23,6 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   const toast = useRef()
 
-  let catchErr = () => {
-    setToastStatus({
-      toastStatus: 'error',
-      msg: error.response.data.message,
-    })
-  }
-
   useEffect(() => {
     if (toastStatus !== {}) {
       setTimeout(() => {
@@ -327,6 +320,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         toast.current.show({
           severity: 'error',
           summary: 'Error updating profile',
+          detail: error.response.data.message,
         })
       })
   }

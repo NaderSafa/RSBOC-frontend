@@ -26,7 +26,7 @@ const PlayerScreen = () => {
           label='Save changes'
           icon='pi pi-save'
           size='small'
-          disabled={!playerInfo ? true : false}
+          disabled={!playerInfo.full_name ? true : false}
           text
           onClick={() => {
             onProfileUpdate(playerInfo).then(() => setEditMode(false))

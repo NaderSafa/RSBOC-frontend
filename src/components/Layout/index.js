@@ -42,9 +42,11 @@ const MainLayout = () => {
 
   return (
     <React.Fragment>
-      {(!user.height || !user.weight || !user.profile_picture_url) && (
-        <Warning msg='Please complete your profile info!' />
-      )}
+      {(!user.height ||
+        !user.weight ||
+        !user.preferred_hand ||
+        !user.gender ||
+        !user.dob) && <Warning msg='Please complete your profile info!' />}
 
       <div className='mx-2 md:mx-4'>
         <TopBar menuItems={menuItems} />
