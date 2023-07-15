@@ -294,42 +294,40 @@ export const AuthenticationContextProvider = ({ children }) => {
   }
 
   //      2.2.1.7 - handle profile update
-  const onProfileUpdate = (displayName, pharmacyName = '') => {
-    let requestBody
-
-    isAdmin
-      ? (requestBody = {
-          displayName: displayName,
-        })
-      : (requestBody = {
-          displayName: displayName,
-          pharmacyName: pharmacyName,
-        })
-
+  const onProfileUpdate = async (playerInfo) => {
+    setIsLoading(true)
+    const requestBody = {
+      ...playerInfo,
+      dob: new Date(playerInfo.dob).toISOString(),
+    }
     server
       .patch('/users', requestBody)
       .then((response) => {
         // console.log('response', response)
-        setToastStatus({
-          toastStatus: 'success',
-          msg: response.data.message,
+        toast.current.show({
+          severity: 'success',
+          summary: 'User Updated',
+          detail: response.data.message,
         })
-        // setTimeout(() => {
-        //   setToastStatus({})
-        // }, 3000)
 
-        onGetUserData()
+        server
+          .get('/users', {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          })
+          .then((response) => {
+            setIsAdmin(response.data.user.role === 'admin' ? true : false)
+            setUser(response.data.user)
+            setIsLoading(false)
+          })
       })
       .catch((error) => {
-        // console.log('error', error)
-        // setError(error.response.data.message)
-        setToastStatus({
-          toastStatus: 'error',
-          msg: 'Error updating profile',
+        console.log('error', error)
+        toast.current.show({
+          severity: 'error',
+          summary: 'Error updating profile',
         })
-        // setTimeout(() => {
-        //   setToastStatus({})
-        // }, 3000)
       })
   }
   //      2.2.1.8 - handle logout

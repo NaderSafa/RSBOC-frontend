@@ -12,7 +12,7 @@ import { Button } from 'primereact/button'
 
 const PlayerScreen = () => {
   const { playerId } = useParams()
-  const { user } = useContext(AuthenticationContext)
+  const { user, onProfileUpdate } = useContext(AuthenticationContext)
   const profileOwner =
     user._id === playerId || window.location.href.endsWith('/profile')
 
@@ -28,7 +28,9 @@ const PlayerScreen = () => {
           size='small'
           disabled={!playerInfo ? true : false}
           text
-          onClick={() => setEditMode(false)}
+          onClick={() => {
+            onProfileUpdate(playerInfo).then(() => setEditMode(false))
+          }}
         />
         <Button
           label='Cancel'
@@ -151,15 +153,15 @@ const PlayerScreen = () => {
       </Container>
       {editMode && renderButtons()}
 
-      <div className='grid mt-2 h-screen'>
-        <div className='col-9 h-full'>
+      <div className='flex-column-reverse flex lg:gap-2 lg:flex-row lg:grid mt-2 lg:h-screen'>
+        <div className='lg:col-9 lg:p-0 h-full'>
           <Container className='h-full overflow-scroll mt-2'>
-            <h2 className='text-base'>Latest Results</h2>
+            <h2 className='text-base mt-0'>Latest Results</h2>
           </Container>
         </div>
-        <div className='col'>
-          <Container className='mt-2'>
-            <h2 className='text-base'>Player Info</h2>
+        <div className='lg:col lg:p-0'>
+          <Container className='lg:mt-2'>
+            <h2 className='text-base mt-0'>Player Info</h2>
             <div className='ml-2 text-black-alpha-80'>
               {user.preferred_hand && (
                 <li className='flex mb-2'>
