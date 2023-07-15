@@ -303,17 +303,11 @@ export const AuthenticationContextProvider = ({ children }) => {
           detail: response.data.message,
         })
 
-        server
-          .get('/users', {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            },
-          })
-          .then((response) => {
-            setIsAdmin(response.data.user.role === 'admin' ? true : false)
-            setUser(response.data.user)
-            setIsLoading(false)
-          })
+        server.get('/users').then((response) => {
+          setIsAdmin(response.data.user.role === 'admin' ? true : false)
+          setUser(response.data.user)
+          setIsLoading(false)
+        })
       })
       .catch((error) => {
         console.log('error', error)
@@ -322,6 +316,7 @@ export const AuthenticationContextProvider = ({ children }) => {
           summary: 'Error updating profile',
           detail: error.response.data.message,
         })
+        setIsLoading(false)
       })
   }
   //      2.2.1.8 - handle logout
