@@ -54,7 +54,7 @@ const ProfileInput = ({
       pt={{
         button: {
           className: 'py-0 my-0 border-1 text-sm font-semibold',
-          style: { backgroundColor: '#f5f5f5', borderColor: '#ebebeb' },
+          style: { borderColor: '#ebebeb' },
         },
       }}
     />
