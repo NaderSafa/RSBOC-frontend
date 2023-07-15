@@ -14,7 +14,8 @@ export const AuthenticationContextProvider = ({ children }) => {
   //  2.0 - grap required states, states handlers and functions from other providers
 
   //  2.1 - define our states
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
+  const [screenLoading, setScreenLoading] = useState(false)
   const [accessToken, setAccessToken] = useState(null)
   const [user, setUser] = useState(null)
   const [error, setError] = useState(null)
@@ -272,6 +273,7 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   //      2.2.1.6 - get user data
   const onGetUserData = () => {
+    setScreenLoading(true)
     server
       .get('/users', {
         headers: {
@@ -280,9 +282,14 @@ export const AuthenticationContextProvider = ({ children }) => {
       })
       .then((response) => {
         // console.log('user data', response.data.user)
+        setScreenLoading(false)
         setIsAdmin(response.data.user.role === 'admin' ? true : false)
         setUser(response.data.user)
         setError(null)
+      })
+      .catch((err) => {
+        console.log(err)
+        setScreenLoading(false)
       })
   }
 
@@ -338,6 +345,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         toast,
         accessToken,
         toastStatus,
+        screenLoading,
         setIsAdmin,
         setError,
         setUser,

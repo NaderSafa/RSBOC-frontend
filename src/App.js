@@ -11,41 +11,49 @@ import './App.css'
 import { Toast } from 'primereact/toast'
 
 function App() {
-  const { toast, setUser, setIsAdmin, setError, setIsLoading } = useContext(
-    AuthenticationContext
-  )
+  const {
+    toast,
+    screenLoading,
+    setIsAdmin,
+    setError,
+    setIsLoading,
+    onGetUserData,
+  } = useContext(AuthenticationContext)
 
-  const token = localStorage.getItem('accessToken')
-  const getUser = () => {
-    server
-      .get('/users', { headers: { Authorization: `Bearer ${token}` } })
-      .then((response) => {
-        setIsAdmin(response.data.user.role === 'admin' ? true : false)
-        setUser(response.data.user)
-        setError(null)
-        setIsLoading(false)
-      })
-      .catch((e) => {
-        // setUser(null)
-        // if (e.response.status === 401) {
-        //   setUser(null)
-        //   console.log('catched error')
-        // }
-        setIsLoading(false)
-      })
-  }
+  // const token = localStorage.getItem('accessToken')
+  // const getUser = () => {
+  //   server
+  //     .get('/users', { headers: { Authorization: `Bearer ${token}` } })
+  //     .then((response) => {
+  //       setIsAdmin(response.data.user.role === 'admin' ? true : false)
+  //       setUser(response.data.user)
+  //       setError(null)
+  //       setIsLoading(false)
+  //     })
+  //     .catch((e) => {
+  //       // setUser(null)
+  //       // if (e.response.status === 401) {
+  //       //   setUser(null)
+  //       //   console.log('catched error')
+  //       // }
+  //       setIsLoading(false)
+  //     })
+  // }
 
   useEffect(() => {
-    setIsLoading(false)
-    if (token) {
-      setIsLoading(true)
-      getUser()
-    }
+    const token = localStorage.getItem('accessToken')
+    token && onGetUserData()
   }, [])
 
   return (
     <>
-      <RouterProvider className='App' router={router} />
+      {screenLoading ? (
+        <div className='h-screen flex justify-content-center align-items-center'>
+          <i className='pi pi-spinner pi-spin text-red-400 text-4xl' />
+        </div>
+      ) : (
+        <RouterProvider className='App' router={router} />
+      )}
       <Toast ref={toast} />
     </>
   )
