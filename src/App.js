@@ -17,6 +17,7 @@ function App() {
     setIsAdmin,
     setError,
     setIsLoading,
+    setScreenLoading,
     onGetUserData,
   } = useContext(AuthenticationContext)
 
@@ -41,6 +42,8 @@ function App() {
   // }
 
   useEffect(() => {
+    setScreenLoading(false)
+    setIsLoading(false)
     const token = localStorage.getItem('accessToken')
     token && onGetUserData()
   }, [])

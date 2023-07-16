@@ -58,14 +58,14 @@ const AuthContainer = ({ children }) => {
             </div>
           </div>
           <div
-            className='hidden md:inline-block col h-screen overflow-scroll bg-cover bg-center bg-black-alpha-90 p-0'
+            className='hidden md:inline-block col h-screen overflow-scroll bg-cover bg-center p-0'
             style={{ backgroundImage: `url(${shownBackground})` }}
           >
-            <div className='flex flex-column bg-white-alpha-50 col h-screen justify-content-end align-items-center px-5 pt-8 pb-3'>
-              <h1 className='text-3xl text-center font-bold text-black-alpha-40 '>
+            <div className='flex flex-column bg-black-alpha-40 col h-screen justify-content-end align-items-center px-5 pt-8 pb-3'>
+              <h1 className='text-3xl text-center font-bold text-white-alpha-90 '>
                 SPEEDBALL LIKE NEVER BEFORE!
               </h1>
-              <p className='text-center text-black-alpha-40 font-medium mt-1 text-xs'>
+              <p className='text-center text-white-alpha-70 font-medium mt-1 text-xs'>
                 whether you are a speedball player, coach or spectator.
                 <br /> we have a place for you.
               </p>

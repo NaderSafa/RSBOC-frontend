@@ -14,8 +14,8 @@ export const AuthenticationContextProvider = ({ children }) => {
   //  2.0 - grap required states, states handlers and functions from other providers
 
   //  2.1 - define our states
-  const [isLoading, setIsLoading] = useState(false)
-  const [screenLoading, setScreenLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [screenLoading, setScreenLoading] = useState(true)
   const [accessToken, setAccessToken] = useState(null)
   const [user, setUser] = useState(null)
   const [error, setError] = useState(null)
@@ -55,7 +55,7 @@ export const AuthenticationContextProvider = ({ children }) => {
           })
         // save access token
         setAccessToken(response.data.accessToken)
-        localStorage.setItem('accessToken', response.data.accessToken)
+        localStorage.setItem('SPEEDBALL_HUB::TOKEN', response.data.accessToken)
       })
       .catch((error) => {
         console.log(error.response.data.message)
@@ -277,7 +277,9 @@ export const AuthenticationContextProvider = ({ children }) => {
     server
       .get('/users', {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          Authorization: `Bearer ${localStorage.getItem(
+            'SPEEDBALL_HUB::TOKEN'
+          )}`,
         },
       })
       .then((response) => {
@@ -328,7 +330,7 @@ export const AuthenticationContextProvider = ({ children }) => {
   }
   //      2.2.1.8 - handle logout
   const onLogout = () => {
-    localStorage.removeItem('accessToken')
+    localStorage.removeItem('SPEEDBALL_HUB::TOKEN')
     setUser(null)
     setAccessToken(null)
     setIsAdmin(null)
@@ -351,6 +353,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         setUser,
         setIsLoading,
         setToastStatus,
+        setScreenLoading,
         onLogin,
         onVerify,
         onChangePassword,

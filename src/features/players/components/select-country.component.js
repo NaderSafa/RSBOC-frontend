@@ -43,7 +43,7 @@ export default function SelectCountry({ selectedCountry, setSelectedCountry }) {
       <div className='py-2 px-3'>
         {selectedCountry ? (
           <span>
-            <b>{selectedCountry.name}</b> selected.
+            <b>{selectedCountry}</b> selected.
           </span>
         ) : (
           'No country selected.'
