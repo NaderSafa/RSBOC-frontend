@@ -43,9 +43,10 @@ const MainLayout = () => {
   return (
     <React.Fragment>
       {(!user.height ||
-        !user.weight ||
+        !user.profile_picture_url ||
         !user.preferred_hand ||
         !user.gender ||
+        !user.phone_number ||
         !user.dob) && <Warning msg='Please complete your profile info!' />}
 
       <div className='mx-2 md:mx-4'>
