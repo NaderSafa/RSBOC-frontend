@@ -45,6 +45,7 @@ const MainLayout = () => {
       {(!user.height ||
         !user.profile_picture_url ||
         !user.preferred_hand ||
+        !user.country ||
         !user.gender ||
         !user.phone_number ||
         !user.dob) && <Warning msg='Please complete your profile info!' />}

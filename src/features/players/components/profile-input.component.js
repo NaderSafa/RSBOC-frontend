@@ -94,10 +94,10 @@ const ProfileInput = ({
     <div
       className={`flex mb-${
         (value && !hidden && property !== 'full_name') || editMode ? '2' : '0'
-      } align-items-center`}
+      } align-items-center ${editMode ? 'grid' : ''}`}
     >
       {editMode && (
-        <div className='w-8rem flex'>
+        <div className='w-8rem flex col-5'>
           <h3 className='text-xs p-0 m-0 font-medium text-black-alpha-60'>
             {label}
           </h3>
@@ -107,7 +107,7 @@ const ProfileInput = ({
         </div>
       )}
 
-      <div className='flex flex-column'>
+      <div className={`flex flex-column ${editMode ? 'col' : ''}`}>
         {editMode ? (
           renderInput()
         ) : hidden ? null : !value ? null : type === 'country' ? (
