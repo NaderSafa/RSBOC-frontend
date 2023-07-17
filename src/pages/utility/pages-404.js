@@ -16,15 +16,27 @@ const Pages404 = () => {
         />
         <h1 className='text-red-400 text-2xl md:text-4xl'>Error 404!</h1>
         <p className='lg:px-4 text-sm md:text-base'>Page not found</p>
-        <Button
-          label='Back to Home'
-          icon='pi pi-home'
-          size='small'
-          text
-          onClick={() => {
-            navigate('/')
-          }}
-        />
+        <div className='flex justify-content-around mt-3'>
+          <Button
+            label='Back'
+            icon='pi pi-arrow-left
+            '
+            size='small'
+            text
+            onClick={() => {
+              navigate(-1)
+            }}
+          />
+          <Button
+            label='Home'
+            icon='pi pi-home'
+            size='small'
+            text
+            onClick={() => {
+              navigate('/')
+            }}
+          />
+        </div>
       </Container>
     </div>
   )
