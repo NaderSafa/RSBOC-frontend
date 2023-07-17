@@ -298,12 +298,15 @@ export const AuthenticationContextProvider = ({ children }) => {
   //      2.2.1.7 - handle profile update
   const onProfileUpdate = async (playerInfo) => {
     setIsLoading(true)
-    const requestBody = {
-      ...playerInfo,
-      dob: new Date(playerInfo.dob).toISOString(),
-    }
+
     server
-      .patch('/users', requestBody)
+      .patch('/users', playerInfo, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            'SPEEDBALL_HUB::TOKEN'
+          )}`,
+        },
+      })
       .then((response) => {
         // console.log('response', response)
         toast.current.show({

@@ -97,7 +97,7 @@ const ProfileInput = ({
       } align-items-center`}
     >
       {editMode && (
-        <div className='w-7rem flex'>
+        <div className='w-8rem flex'>
           <h3 className='text-xs p-0 m-0 font-medium text-black-alpha-60'>
             {label}
           </h3>

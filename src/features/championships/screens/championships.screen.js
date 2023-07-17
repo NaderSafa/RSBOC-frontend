@@ -8,7 +8,7 @@ function ChampionshipsScreen() {
         <i className='pi pi-cog text-6xl' />
         <h1 className='text-red-400 text-2xl md:text-4xl'>Stay tuned!</h1>
         <p className='lg:px-4 text-sm md:text-base'>
-          This page is currently under Consstruction
+          This page is currently under Construction
         </p>
       </Container>
     </div>

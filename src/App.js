@@ -44,7 +44,7 @@ function App() {
   useEffect(() => {
     setScreenLoading(false)
     setIsLoading(false)
-    const token = localStorage.getItem('accessToken')
+    const token = localStorage.getItem('SPEEDBALL_HUB::TOKEN')
     token && onGetUserData()
   }, [])
 
