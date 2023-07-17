@@ -45,13 +45,19 @@ export const AuthenticationContextProvider = ({ children }) => {
       })
       .then((response) => {
         const token = response.data.accessToken
+        setIsLoading(false)
+        setScreenLoading(true)
         // get user data
         server
-          .get('/users', { headers: { Authorization: `Bearer ${token}` } })
+          .get('/getUser', { headers: { Authorization: `Bearer ${token}` } })
           .then((response) => {
+            setScreenLoading(false)
             setIsAdmin(response.data.user.role === 'admin' ? true : false)
             setUser(response.data.user)
-            setIsLoading(false)
+          })
+          .catch((e) => {
+            setScreenLoading(false)
+            console.log(e)
           })
         // save access token
         setAccessToken(response.data.accessToken)
@@ -64,7 +70,6 @@ export const AuthenticationContextProvider = ({ children }) => {
           summary: 'Error in Login',
           detail: error.response.data.message,
         })
-
         setIsLoading(false)
       })
   }
@@ -275,7 +280,7 @@ export const AuthenticationContextProvider = ({ children }) => {
   const onGetUserData = () => {
     setScreenLoading(true)
     server
-      .get('/users', {
+      .get('/getUser', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem(
             'SPEEDBALL_HUB::TOKEN'
@@ -297,7 +302,7 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   //      2.2.1.7 - handle profile update
   const onProfileUpdate = async (playerInfo) => {
-    setIsLoading(true)
+    setScreenLoading(true)
 
     server
       .patch('/users', playerInfo, {
@@ -315,11 +320,19 @@ export const AuthenticationContextProvider = ({ children }) => {
           detail: response.data.message,
         })
 
-        server.get('/users').then((response) => {
-          setIsAdmin(response.data.user.role === 'admin' ? true : false)
-          setUser(response.data.user)
-          setIsLoading(false)
-        })
+        server
+          .get('/getUser', {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem(
+                'SPEEDBALL_HUB::TOKEN'
+              )}`,
+            },
+          })
+          .then((response) => {
+            setIsAdmin(response.data.user.role === 'admin' ? true : false)
+            setUser(response.data.user)
+            setScreenLoading(false)
+          })
       })
       .catch((error) => {
         console.log('error', error)
@@ -328,7 +341,7 @@ export const AuthenticationContextProvider = ({ children }) => {
           summary: 'Error updating profile',
           detail: error.response.data.message,
         })
-        setIsLoading(false)
+        setScreenLoading(false)
       })
   }
   //      2.2.1.8 - handle logout

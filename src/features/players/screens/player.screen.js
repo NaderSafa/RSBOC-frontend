@@ -16,6 +16,7 @@ const PlayerScreen = () => {
   const profileOwner =
     user._id === playerId || window.location.href.endsWith('/profile')
 
+  const [loading, setLoading] = useState(false)
   const [playerInfo, setPlayerInfo] = useState(null)
   const [editMode, setEditMode] = useState(false)
   const [file, setFile] = useState(null)
@@ -50,16 +51,33 @@ const PlayerScreen = () => {
 
   const updateProfilePicture = () => {
     if (file) {
+      setLoading(true)
       const formData = new FormData()
       formData.append('filename', file)
       server
         .post('/users/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem(
+              'SPEEDBALL_HUB::TOKEN'
+            )}`,
           },
         })
-        .then((res) => console.log(res.data.downloadURL))
-        .catch((e) => console.log(e))
+        .then((res) => {
+          onProfileUpdate({ profile_picture_url: res.data.downloadURL })
+            .then(() => {
+              setLoading(false)
+              setShowUploadButton(false)
+            })
+            .catch((e) => {
+              console.log(e)
+              setLoading(false)
+            })
+        })
+        .catch((e) => {
+          console.log(e)
+          setLoading(false)
+        })
     } else {
       toast.current.show({
         severity: 'error',
@@ -69,29 +87,31 @@ const PlayerScreen = () => {
     }
   }
 
-  useEffect(() => {
-    if (file) {
-      const formData = new FormData()
-      formData.append('filename', file)
-      server
-        .post('/users/upload', formData, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem(
-              'SPEEDBALL_HUB::TOKEN'
-            )}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then((res) => {
-          onProfileUpdate({ profile_picture_url: res.data.downloadURL })
-            .then(() => {
-              setShowUploadButton(false)
-            })
-            .catch((e) => console.log(e))
-        })
-        .catch((e) => console.log(e))
-    }
-  }, [file])
+  // useEffect(() => console.log(playerInfo), [playerInfo])
+
+  // useEffect(() => {
+  //   if (file) {
+  //     const formData = new FormData()
+  //     formData.append('filename', file)
+  //     server
+  //       .post('/users/upload', formData, {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem(
+  //             'SPEEDBALL_HUB::TOKEN'
+  //           )}`,
+  //           'Content-Type': 'multipart/form-data',
+  //         },
+  //       })
+  //       .then((res) => {
+  //         onProfileUpdate({ profile_picture_url: res.data.downloadURL })
+  //           .then(() => {
+  //             setShowUploadButton(false)
+  //           })
+  //           .catch((e) => console.log(e))
+  //       })
+  //       .catch((e) => console.log(e))
+  //   }
+  // }, [file])
 
   const renderButtons = () => (
     <div className='w-full'>
@@ -113,7 +133,7 @@ const PlayerScreen = () => {
           severity='secondary'
           onClick={() => {
             setEditMode(false)
-            setPlayerInfo(null)
+            setPlayerInfo({})
           }}
         />
       </div>
@@ -160,7 +180,7 @@ const PlayerScreen = () => {
                 <div>
                   <Button
                     label='Save'
-                    icon='pi pi-save'
+                    icon={`pi pi-${loading ? 'spinner pi-spin' : 'save'}`}
                     size='small'
                     disabled={!file ? true : false}
                     text

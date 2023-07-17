@@ -1,20 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dropdown } from 'primereact/dropdown'
 import ReactCountryFlag from 'react-country-flag'
+import server from '../../../server'
 
-export default function SelectCountry({ selectedCountry, setSelectedCountry }) {
-  const countries = [
-    { name: 'Australia', code: 'AU' },
-    { name: 'Brazil', code: 'BR' },
-    { name: 'China', code: 'CN' },
-    { name: 'Egypt', code: 'EG' },
-    { name: 'France', code: 'FR' },
-    { name: 'Germany', code: 'DE' },
-    { name: 'India', code: 'IN' },
-    { name: 'Japan', code: 'JP' },
-    { name: 'Spain', code: 'ES' },
-    { name: 'United States', code: 'US' },
-  ]
+const SelectCountry = ({ selectedCountry, setSelectedCountry }) => {
+  const [countries, setCountries] = useState()
+
+  useEffect(() => {
+    server
+      .get('/country', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            'SPEEDBALL_HUB::TOKEN'
+          )}`,
+        },
+      })
+      .then((res) => setCountries(res.data.countries))
+      .catch((error) => console.log(error))
+  }, [])
 
   const selectedCountryTemplate = (option, props) => {
     if (option) {
@@ -32,7 +35,7 @@ export default function SelectCountry({ selectedCountry, setSelectedCountry }) {
   const countryOptionTemplate = (option) => {
     return (
       <div className='flex align-items-center p-0'>
-        <ReactCountryFlag countryCode={option.code} className='mr-2' />
+        <ReactCountryFlag countryCode={option.alpha_2} className='mr-2' />
         <p className='p-0 m-0 text-sm'>{option.name}</p>
       </div>
     )
@@ -58,7 +61,7 @@ export default function SelectCountry({ selectedCountry, setSelectedCountry }) {
       onChange={(e) => setSelectedCountry(e.value)}
       options={countries}
       optionLabel='name'
-      optionValue='code'
+      optionValue='alpha_2'
       placeholder='Country'
       valueTemplate={selectedCountryTemplate}
       itemTemplate={countryOptionTemplate}
@@ -80,3 +83,5 @@ export default function SelectCountry({ selectedCountry, setSelectedCountry }) {
     />
   )
 }
+
+export default SelectCountry
