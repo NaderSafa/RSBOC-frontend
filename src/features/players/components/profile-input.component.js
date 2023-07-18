@@ -39,6 +39,7 @@ const ProfileInput = ({
       placeholder={label}
       inputClassName='text-sm p-0 bg-transparent font-semibold'
       onChange={handleChange}
+      showButtonBar
     />
   )
 
@@ -110,23 +111,25 @@ const ProfileInput = ({
       <div className={`flex flex-column ${editMode ? 'col' : ''}`}>
         {editMode ? (
           renderInput()
-        ) : hidden ? null : !value ? null : type === 'country' ? (
-          value && <ReactCountryFlag countryCode={value} />
+        ) : hidden ? null : !user[property] ? null : type === 'country' ? (
+          user[property] && <ReactCountryFlag countryCode={user[property]} />
         ) : property === 'dob' ? (
           <p className='m-0 p-0'>{`${
-            new Date().getFullYear() - new Date(value).getFullYear()
+            new Date().getFullYear() - new Date(user[property]).getFullYear()
           } years`}</p>
         ) : property === 'gender' ? (
-          <p className='m-0 p-0'>{value === 'M' ? 'Male' : 'Female'}</p>
+          <p className='m-0 p-0'>
+            {user[property] === 'M' ? 'Male' : 'Female'}
+          </p>
         ) : (
           <>
-            {value && (
+            {user[property] && (
               <p
                 className={`text-${
                   property === 'full_name' ? 'xl lg:text-2xl' : 'sm'
                 } font-medium p-0 m-0`}
               >
-                {`${value} ${
+                {`${user[property]} ${
                   property === 'full_name' && user?.nick_name
                     ? '( ' + user?.nick_name + ' )'
                     : ''

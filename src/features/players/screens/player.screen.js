@@ -133,7 +133,7 @@ const PlayerScreen = () => {
           severity='secondary'
           onClick={() => {
             setEditMode(false)
-            setPlayerInfo({})
+            // setPlayerInfo({})
           }}
         />
       </div>

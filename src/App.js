@@ -1,8 +1,6 @@
 import { useContext, useEffect } from 'react'
 import { RouterProvider } from 'react-router-dom'
-import { Row, Spinner } from 'reactstrap'
 import { AuthenticationContext } from './Auth/authentication.context'
-import server from './server'
 
 import { router } from './Routes'
 
