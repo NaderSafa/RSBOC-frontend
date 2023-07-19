@@ -30,6 +30,11 @@ const MainLayout = () => {
       command: () => navigate('/profile'),
     },
     {
+      label: 'Players',
+      icon: 'pi pi-users',
+      command: () => navigate('/players'),
+    },
+    {
       label: 'Championships',
       icon: 'pi pi-sitemap',
       command: () => navigate('/championships'),

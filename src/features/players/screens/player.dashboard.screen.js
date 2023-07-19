@@ -92,10 +92,10 @@ const PlayerDashboard = () => {
 
   const header = () => (
     <div className='flex flex-wrap align-items-center justify-content-between gap-2'>
-      <span className='text-xl text-700 font-bold'>Products</span>
+      <span className='text-xl text-700 font-bold'>Upcoming Events</span>
       <i
         className={`pi pi-${
-          loading ? 'spin pi-spinner' : 'refresh'
+          loading ? 'spin pi-spinner' : 'refresh text-red-300'
         } cursor-pointer`}
         onClick={() => setRefresh((prevState) => !prevState)}
       />
@@ -114,18 +114,27 @@ const PlayerDashboard = () => {
           // footer={footer}
           tableStyle={{ minWidth: '60rem' }}
           size='small'
+          // rowClassName='bg-transparent'
+          // className='bg-white-alpha-30 border-0'
+          //   pt={{
+          //     header: { style: { background: '#f5f5f5' } },
+          //   }}
         >
           <Column field='name' header='Name' sortable />
-          {/*
-          <Column header='Image' body={imageBodyTemplate} />
-        */}
-          <Column field='dates' header='Dates' body={priceBodyTemplate} />
+
+          <Column
+            field='dates'
+            sortable
+            header='Dates'
+            body={priceBodyTemplate}
+          />
           <Column field='gender' header='Gender' body={genderBodyTemplate} />
           <Column
             field='age_limit'
             header='Age Limit'
             body={ageLimitBodyTemplate}
           />
+          <Column field='event_code' header='Type' />
           <Column header='Status' body={statusBodyTemplate} />
         </DataTable>
       </Container>
