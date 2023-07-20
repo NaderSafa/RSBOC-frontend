@@ -32,6 +32,7 @@ import PlayerScreen from '../features/players/screens/player.screen'
 import PlayerDashboard from '../features/players/screens/player.dashboard.screen'
 import EventScreen from '../features/events/screens/event.screen'
 import EventsScreen from '../features/events/screens/events.screen'
+import VerifiedScreen from '../features/Authentication/screens/verified.screen'
 
 export const router = createBrowserRouter([
   {
@@ -141,6 +142,10 @@ export const router = createBrowserRouter([
   {
     path: '/register',
     element: <RegisterScreen />,
+  },
+  {
+    path: '/verified',
+    element: <VerifiedScreen />,
   },
   {
     path: '/logout',
