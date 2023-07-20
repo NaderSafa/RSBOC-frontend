@@ -117,9 +117,9 @@ const EventScreen = () => {
                       backgroundImage: `url(${eventDetails?.tournament?.championship?.logo_url})`,
                     }}
                   >
-                    {!user.profile_picture_url && !hovering && (
+                    {/*!user.profile_picture_url && !hovering && (
                       <i className='pi pi-user text-6xl' />
-                    )}
+                    )*/}
                     {hovering && (
                       <i
                         className={`pi pi-${'eye'} text-xl text-color-white`}
