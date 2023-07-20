@@ -79,7 +79,7 @@ export default function TopBar({ menuItems }) {
 
       <div
         onClick={() => navigate('/profile')}
-        className='curser-pointer mr-2 md:mr-4'
+        className='curser-pointer mr-3 md:mr-4'
       >
         <i className='pi pi-user' />
       </div>

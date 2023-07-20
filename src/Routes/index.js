@@ -30,6 +30,8 @@ import PlayersScreen from '../features/players/screens/players.screen'
 import ChampionshipScreen from '../features/championships/screens/championship.screen'
 import PlayerScreen from '../features/players/screens/player.screen'
 import PlayerDashboard from '../features/players/screens/player.dashboard.screen'
+import EventScreen from '../features/events/screens/event.screen'
+import EventsScreen from '../features/events/screens/events.screen'
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +54,11 @@ export const router = createBrowserRouter([
               {
                 path: 'championships/:championshipId',
                 element: <ChampionshipScreen />,
+              },
+              { path: 'events', element: <EventsScreen /> },
+              {
+                path: 'events/:eventId',
+                element: <EventScreen />,
               },
               { path: 'orders', element: <PharmacyOrders /> },
               { path: 'orders/:orderId', element: <OrderDetails /> },

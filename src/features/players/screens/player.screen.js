@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom'
 import { FaWeightScale } from 'react-icons/fa6'
 import { GiBodyHeight } from 'react-icons/gi'
 import { IoHandRightSharp, IoHandLeftSharp } from 'react-icons/io5'
+import { Button } from 'primereact/button'
 import Container from '../../../infrastrucrure/layout/components/container.component'
 import { AuthenticationContext } from '../../../Auth/authentication.context'
 import ProfileInput from '../components/profile-input.component'
-import { Button } from 'primereact/button'
 import server from '../../../server'
 
 const PlayerScreen = () => {
@@ -143,7 +143,7 @@ const PlayerScreen = () => {
   return (
     <>
       <h1 className='text-lg'>Player profile</h1>
-      <Container className='flex m-0 mt-3 align-items-start justify-content-between w-full'>
+      <Container className='relative flex m-0 mt-3 align-items-start justify-content-between w-full'>
         <div className='flex flex-column lg:flex-row align-items-center w-full'>
           <div className='p-0 lg:mr-5 flex flex-column justify-content-center align-items-center'>
             <div
@@ -298,14 +298,18 @@ const PlayerScreen = () => {
             </div>
           </div>
         </div>
-        {profileOwner && (
-          <i
-            className={`pi pi-user-edit cursuer-pointer transition-colors text-${
-              editMode ? 'black-alpha-20' : 'black-alpha-80 hover:text-red-300'
-            } transition-duration-300`}
-            onClick={() => setEditMode(true)}
-          />
-        )}
+        <div className='absolute right-0 mr-4'>
+          {profileOwner && (
+            <i
+              className={`pi pi-user-edit cursuer-pointer transition-colors text-${
+                editMode
+                  ? 'black-alpha-20'
+                  : 'black-alpha-80 hover:text-red-300'
+              } transition-duration-300`}
+              onClick={() => setEditMode(true)}
+            />
+          )}
+        </div>
       </Container>
       {editMode && renderButtons()}
 

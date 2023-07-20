@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
-import { Button } from 'primereact/button'
-import { Rating } from 'primereact/rating'
 import { Tag } from 'primereact/tag'
 import { BsGenderFemale, BsGenderMale } from 'react-icons/bs'
 
 import Container from '../../../infrastrucrure/layout/components/container.component'
 import server from '../../../server'
 import { formatDate } from '../../../components/shared/utils'
-import { Toolbar } from 'primereact/toolbar'
+import { useNavigate } from 'react-router-dom'
 
 const PlayerDashboard = () => {
   const [events, setEvents] = useState([])
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [selectedEvent, setSelectedEvent] = useState()
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     setLoading(true)
@@ -36,34 +37,32 @@ const PlayerDashboard = () => {
       })
   }, [refresh])
 
-  const imageBodyTemplate = (product) => {
+  const imageBodyTemplate = (event) => {
     return (
       <img
-        src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`}
-        alt={product.image}
+        src={`https://primefaces.org/cdn/primereact/images/event/${event.image}`}
+        alt={event.image}
         className='w-6rem shadow-2 border-round'
       />
     )
   }
 
-  const priceBodyTemplate = (product) =>
-    product.dates.map((date) => formatDate(date)).join(', ')
+  const priceBodyTemplate = (event) =>
+    event.dates.map((date) => formatDate(date)).join(', ')
 
-  const ageLimitBodyTemplate = (product) => {
+  const ageLimitBodyTemplate = (event) => {
     return (
-      <p className='m-0'>
-        {product.age_limit === 0 ? 'open' : product.age_limit}
-      </p>
+      <p className='m-0'>{event.age_limit === 0 ? 'open' : event.age_limit}</p>
     )
   }
 
-  const statusBodyTemplate = (product) => {
+  const statusBodyTemplate = (event) => {
     const currentDate = new Date()
     return (
       <>
-        {currentDate < new Date(product.registration_start_date) ? (
-          <Tag value='opens soon' severity='warning' />
-        ) : currentDate <= new Date(product.registration_end_date) ? (
+        {currentDate < new Date(event.registration_start_date) ? (
+          <Tag value='soon' severity='warning' />
+        ) : currentDate <= new Date(event.registration_end_date) ? (
           <Tag value='open' severity='success' />
         ) : (
           <Tag value='closed' severity='danger' />
@@ -72,12 +71,12 @@ const PlayerDashboard = () => {
     )
   }
 
-  const genderBodyTemplate = (product) => {
-    switch (product.gender) {
-      case 'men':
+  const genderBodyTemplate = (event) => {
+    switch (event.gender) {
+      case 'male':
         return <BsGenderMale />
 
-      case 'women':
+      case 'female':
         return <BsGenderFemale />
 
       default:
@@ -102,39 +101,39 @@ const PlayerDashboard = () => {
     </div>
   )
 
-  const footer = `In total there are ${events ? events.length : 0} events.`
+  const onRowSelect = (e) => navigate(`/events/${e.data._id}`)
 
   return (
     <>
       <Container className='w-full lg:py-5'>
         <DataTable
+          dataKey='_id'
           value={events}
           header={header}
           loading={loading}
-          // footer={footer}
-          tableStyle={{ minWidth: '60rem' }}
+          tableStyle={{ minWidth: '45rem' }}
           size='small'
-          // rowClassName='bg-transparent'
-          // className='bg-white-alpha-30 border-0'
-          //   pt={{
-          //     header: { style: { background: '#f5f5f5' } },
-          //   }}
+          onRowSelect={onRowSelect}
+          selectionMode='single'
+          selection={selectedEvent}
+          onSelectionChange={(e) => setSelectedEvent(e.value)}
         >
-          <Column field='name' header='Name' sortable />
-
+          <Column field='tournament.short_name' header='Tournament' sortable />
+          <Column field='name' header='Event' sortable />
+          <Column field='event_type.head' header='Type' />
+          <Column field='gender' header='Gender' body={genderBodyTemplate} />
+          <Column field='event_type.tournament_format' header='Format' />
+          <Column
+            field='age_limit'
+            header='Age Limit'
+            body={ageLimitBodyTemplate}
+          />
           <Column
             field='dates'
             sortable
             header='Dates'
             body={priceBodyTemplate}
           />
-          <Column field='gender' header='Gender' body={genderBodyTemplate} />
-          <Column
-            field='age_limit'
-            header='Age Limit'
-            body={ageLimitBodyTemplate}
-          />
-          <Column field='event_code' header='Type' />
           <Column header='Status' body={statusBodyTemplate} />
         </DataTable>
       </Container>
