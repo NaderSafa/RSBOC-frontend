@@ -26,6 +26,8 @@ const RegisterScreen = () => {
     e.preventDefault()
   }
 
+  document.title = 'Register | Speedball Hub'
+
   return (
     <AuthContainer>
       <div>

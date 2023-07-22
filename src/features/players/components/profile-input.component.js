@@ -17,7 +17,9 @@ const ProfileInput = ({
   hidden,
 }) => {
   const { user } = useContext(AuthenticationContext)
-  const [value, setValue] = useState(user[property])
+  const [value, setValue] = useState(
+    property === 'dob' && !user.dob ? new Date('1/1/2000') : user[property]
+  )
   const [error, setError] = useState()
 
   useEffect(() => {

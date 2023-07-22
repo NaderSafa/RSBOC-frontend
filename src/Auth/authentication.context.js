@@ -143,34 +143,28 @@ export const AuthenticationContextProvider = ({ children }) => {
   }
 
   //      2.2.1.3 - handle send forgot password email | Post request to send email for forget password usage
-  const onSendForgetPasswordEmail = (email) => {
+  const onForgotPassword = (email) => {
     setIsLoading(true)
 
     server
-      .post('/users/send-forget-password-email', {
+      .post('/users/forgot-password', {
         email,
       })
-      .then((response) => {
-        // console.log('response', response)
-        setToastStatus({
-          toastStatus: 'success',
-          msg: response.data.message,
+      .then((res) => {
+        // console.log('response', res.data.message)
+        toast.current.show({
+          severity: 'success',
+          summary: 'Reset password e-mail sent',
+          detail: res.data.message,
         })
-        // setTimeout(() => {
-        //   setToastStatus({})
-        // }, 3000)
         setIsLoading(false)
       })
       .catch((error) => {
-        setError(error.response.data.message)
-        setToastStatus({
-          toastStatus: 'error',
-          msg: error.response.data.message,
+        toast.current.show({
+          severity: 'error',
+          summary: 'Error in password reset',
+          detail: error.response.data.message,
         })
-        // setTimeout(() => {
-        //   setToastStatus({})
-        // }, 3000)
-        console.log(error)
         setIsLoading(false)
       })
     setIsLoading(false)
@@ -374,7 +368,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         onVerify,
         onChangePassword,
         onChangePasswordProfile,
-        onSendForgetPasswordEmail,
+        onForgotPassword,
         onGetUserData,
         onProfileUpdate,
         onRegister,

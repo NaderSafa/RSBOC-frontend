@@ -122,3 +122,14 @@ input[type='file']::file-selector-button:hover {
 .p-datatable-loading-overlay {
   background-color: #00000005 !important;
 }
+
+.p-datatable.p-datatable-selectable
+  .p-datatable-tbody
+  > tr.p-selectable-row:focus {
+  outline: none !important;
+}
+
+/* stepper */
+.p-steps .p-steps-item .p-menuitem-link:not(.p-disabled):focus {
+  box-shadow: none !important;
+}

@@ -103,6 +103,8 @@ const PlayerDashboard = () => {
 
   const onRowSelect = (e) => navigate(`/events/${e.data._id}`)
 
+  document.title = 'Dashboard | Speedball Hub'
+
   return (
     <>
       <Container className='w-full lg:py-5'>

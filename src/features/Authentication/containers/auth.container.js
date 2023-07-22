@@ -1,18 +1,33 @@
 import { Image } from 'primereact/image'
 import React, { useContext, useEffect, useState } from 'react'
 import logoHorizontal from '../../../assets/images/logo-h.png'
-import background0 from '../../../assets/images/background-0.jpg'
-import background1 from '../../../assets/images/background-1.jpg'
-import background2 from '../../../assets/images/background-2.jpg'
-import background3 from '../../../assets/images/background-3.jpg'
 import { Navigate } from 'react-router-dom'
 import { AuthenticationContext } from '../../../Auth/authentication.context'
 
 const AuthContainer = ({ children }) => {
   const { user, isAdmin } = useContext(AuthenticationContext)
-  const [shownBackground, setShownBackground] = useState(background1)
+  const [shownBackground, setShownBackground] = useState(
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-0.jpg?alt=media&token=ee543b4b-dfd7-4a8c-b324-d9b906e629b0'
+  )
 
-  const backgroundList = [background0, background1, background2, background3]
+  const backgroundList = [
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-0.jpg?alt=media&token=ee543b4b-dfd7-4a8c-b324-d9b906e629b0',
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-1.jpg?alt=media&token=0ee1deb1-c2b2-4b66-8028-1503646fd7b9',
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-2.jpg?alt=media&token=82b58c72-d494-480f-a54e-bef2b5827f86',
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-3.jpg?alt=media&token=6991cb3f-2b4f-473b-8954-459ca1ffa232',
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-4.jpg?alt=media&token=b3f2b717-af94-470b-aadf-e127d5b998f3',
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-5.jpg?alt=media&token=cb16dfbe-be42-405b-a851-4a3f698cbebb',
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-6.jpg?alt=media&token=26802015-10a5-4d21-83df-689cfd7cee9d',
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-7.jpg?alt=media&token=481e152a-4746-4953-b50a-63a37e86e3da',
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-8.jpg?alt=media&token=6cba9eb0-bf3a-4892-9a4c-b79966732678',
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-9.jpg?alt=media&token=ff5d892b-9754-45e3-9ae2-5b14cc37d4fe',
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-10.jpg?alt=media&token=c2bbf896-5cef-4bd0-92bc-53cdf18821c8',
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-11.jpg?alt=media&token=64dd7d17-bdf4-406b-9475-de7438a05641',
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-12.jpg?alt=media&token=80517c26-9840-4b4e-941e-5ff0ae495e4c',
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-13.jpg?alt=media&token=b762a4f4-4090-458f-a66e-f526ce7d2ae1',
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-14.jpg?alt=media&token=da94635f-b61e-4dac-8cc3-54271d6fbdcd',
+    'https://firebasestorage.googleapis.com/v0/b/rsboc-b0e57.appspot.com/o/backgrounds%2Fbackground-15.jpg?alt=media&token=4c650f28-7ce9-48f9-a640-dedf091ac5d7',
+  ]
 
   function getRandomNumber(num) {
     // Get a random number between 0 and 1.
@@ -58,7 +73,7 @@ const AuthContainer = ({ children }) => {
             </div>
           </div>
           <div
-            className='hidden md:inline-block col h-screen overflow-scroll bg-cover bg-center p-0'
+            className='hidden md:inline-block col bg-black-alpha-90 h-screen overflow-scroll bg-cover bg-center p-0'
             style={{ backgroundImage: `url(${shownBackground})` }}
           >
             <div className='flex flex-column bg-black-alpha-40 col h-screen justify-content-end align-items-center px-5 pt-8 pb-3'>

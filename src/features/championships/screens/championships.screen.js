@@ -2,6 +2,8 @@ import React from 'react'
 import Container from '../../../infrastrucrure/layout/components/container.component'
 
 function ChampionshipsScreen() {
+  document.title = 'Championships | Speedball Hub'
+
   return (
     <div className='flex w-full h-full align-items-center justify-content-center'>
       <Container className='w-9 md:w-6 lg:w-4 text-center lg:py-5'>

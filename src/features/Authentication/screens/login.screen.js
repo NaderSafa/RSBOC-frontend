@@ -20,6 +20,8 @@ const LoginScreen = () => {
     e.preventDefault()
   }
 
+  document.title = 'Login | Speedball Hub'
+
   return (
     <AuthContainer>
       <div>
@@ -69,7 +71,10 @@ const LoginScreen = () => {
           <br />
           <b>or</b>
           <br />
-          <Link className='font-medium text-center text-sm '>
+          <Link
+            className='font-medium text-center text-sm '
+            to='/forgot-password'
+          >
             Forgot your password?
           </Link>
         </p>

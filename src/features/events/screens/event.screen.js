@@ -36,19 +36,16 @@ const EventScreen = () => {
       .then((res) => {
         setLoading(false)
         setEventDetails(res.data.event)
-        console.log(res.data.event)
       })
       .catch((e) => console.log(e))
   }, [])
 
   useEffect(() => {
-    console.log(user)
     if (
       eventDetails?.gender === 'mixed' ||
       (eventDetails?.gender === 'male' && user?.gender === 'M') ||
       (eventDetails?.gender === 'female' && user?.gender === 'F')
     ) {
-      console.log('sdgdfs')
       setEligable(true)
     }
     if (
@@ -64,11 +61,11 @@ const EventScreen = () => {
     eventDetails?.gender === 'male' ? (
       Array(eventDetails?.event_type?.players_per_team)
         .fill(1)
-        .map(() => <BsGenderMale className='mr-1' />)
+        .map((i, idx) => <BsGenderMale key={idx} className='mr-1' />)
     ) : eventDetails?.gender === 'female' ? (
       Array(eventDetails?.event_type?.players_per_team)
         .fill(1)
-        .map(() => <BsGenderFemale className='mr-1' />)
+        .map((i, idx) => <BsGenderFemale key={idx} className='mr-1' />)
     ) : (
       <>
         <BsGenderMale className='mr-1' />
@@ -190,8 +187,8 @@ const EventScreen = () => {
                   <h3 className='text-base font-medium m-0 mb-1 p-0'>
                     Event dates:
                   </h3>
-                  {eventDetails?.dates.map((date) => (
-                    <p key={date} className='m-0 p-0'>
+                  {eventDetails?.dates.map((date, idx) => (
+                    <p key={idx} className='m-0 p-0'>
                       {formatDate(date)}
                     </p>
                   ))}
@@ -206,10 +203,11 @@ const EventScreen = () => {
                 <Button
                   label='Apply Now'
                   icon='pi pi-sign-in'
+                  iconPos='right'
                   size='small'
                   text
                   onClick={() => {
-                    // onProfileUpdate(playerInfo).then(() => setEditMode(false))
+                    navigate('register', { state: eventDetails })
                   }}
                 />
               </div>

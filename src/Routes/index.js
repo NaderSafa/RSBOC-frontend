@@ -3,7 +3,6 @@ import MainLayout from '../components/Layout'
 import PrivateRoutes from '../Routes/PrivateRoutes'
 import AdminDashboard from '../Routes/AdminDashboard'
 import Pages404 from '../pages/utility/pages-404'
-import Dashboard from '../components/Dashboard'
 import OrderDetails from '../components/orders/OrderDetails'
 import AdminOrders from '../components/orders/AdminOrders'
 import MoleculesTable from '../components/Reports/Molecules/MoleculesTable'
@@ -14,7 +13,6 @@ import PharmacyOrders from '../components/orders/PharmacyOrders'
 // import SessionTimeOut from '../features/Authentication/SessionTimeOut'
 import MoleculesReport from '../components/Reports/MoleculesReport'
 import MoleculeHistory from '../components/Reports/Molecules/MoleculeHistory'
-import PharmacyDashboard from '../components/Dashboard/PharmacyDashboard'
 import ManufacturersAdmin from '../components/Reports/Manufacturers/ManufacturersAdmin'
 import ManufacturersPharmacy from '../components/Reports/Manufacturers/ManufacturersPharmacy'
 import AdminUploadFile from '../components/Upload/AdminUploadFile'
@@ -33,6 +31,8 @@ import PlayerDashboard from '../features/players/screens/player.dashboard.screen
 import EventScreen from '../features/events/screens/event.screen'
 import EventsScreen from '../features/events/screens/events.screen'
 import VerifiedScreen from '../features/Authentication/screens/verified.screen'
+import EventRegisterScreen from '../features/events/screens/event.register.screen'
+import ForgotPasswordScreen from '../features/Authentication/screens/forgot-password.screen'
 
 export const router = createBrowserRouter([
   {
@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
             children: [
               { index: true, element: <PlayerDashboard /> },
               { path: 'profile', element: <PlayerScreen /> },
-              { path: 'players', element: <PlayersScreen /> },
+              { path: 'players', element: <ChampionshipsScreen /> },
               { path: 'players/:playerId', element: <PlayerScreen /> },
               { path: 'championships', element: <ChampionshipsScreen /> },
               {
@@ -61,6 +61,10 @@ export const router = createBrowserRouter([
                 path: 'events/:eventId',
                 element: <EventScreen />,
               },
+              {
+                path: 'events/:eventId/register',
+                element: <EventRegisterScreen />,
+              },
               { path: 'orders', element: <PharmacyOrders /> },
               { path: 'orders/:orderId', element: <OrderDetails /> },
               { path: 'manufacturers', element: <ManufacturersPharmacy /> },
@@ -70,10 +74,6 @@ export const router = createBrowserRouter([
             path: 'admin',
             element: <AdminDashboard />,
             children: [
-              {
-                index: true,
-                element: <Dashboard />,
-              },
               {
                 path: 'profile',
                 element: <UserProfile />,
@@ -146,6 +146,10 @@ export const router = createBrowserRouter([
   {
     path: '/verified',
     element: <VerifiedScreen />,
+  },
+  {
+    path: '/forgot-password',
+    element: <ForgotPasswordScreen />,
   },
   {
     path: '/logout',

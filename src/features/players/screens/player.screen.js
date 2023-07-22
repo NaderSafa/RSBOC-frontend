@@ -23,6 +23,10 @@ const PlayerScreen = () => {
   const [hovering, setHovering] = useState(false)
   const [showUploadButton, setShowUploadButton] = useState(false)
 
+  document.title = profileOwner
+    ? 'Profile | Speedball Hub'
+    : 'Player | Speedball Hub'
+
   const handleFileUpload = (event) => {
     const selectedFile = event.target.files[0]
     if (selectedFile.size > 2097152) {
@@ -120,7 +124,17 @@ const PlayerScreen = () => {
           label='Save changes'
           icon='pi pi-save'
           size='small'
-          disabled={!playerInfo.full_name ? true : false}
+          disabled={
+            !playerInfo.full_name ||
+            !playerInfo.country ||
+            !playerInfo.gender ||
+            !playerInfo.phone_number ||
+            !playerInfo.dob ||
+            !playerInfo.preferred_hand ||
+            !playerInfo.height
+              ? true
+              : false
+          }
           text
           onClick={() => {
             onProfileUpdate(playerInfo).then(() => setEditMode(false))
@@ -167,7 +181,7 @@ const PlayerScreen = () => {
                   <i
                     className={`pi pi-${
                       user.profile_picture_url ? 'user-edit' : 'plus'
-                    } text-xl text-color-white`}
+                    } text-xl text-color-white p-6`}
                     style={{ color: 'white' }}
                     onClick={() => setShowUploadButton(true)}
                   />
@@ -229,6 +243,7 @@ const PlayerScreen = () => {
                 property='country'
                 editMode={editMode}
                 type='country'
+                required
               />
             </div>
             <div className='col-12 p-0 m-0 lg:col-5'>
@@ -242,6 +257,7 @@ const PlayerScreen = () => {
                   { name: 'Male', code: 'M' },
                   { name: 'Female', code: 'F' },
                 ]}
+                required
               />
               <ProfileInput
                 label='Birth Date'
@@ -249,6 +265,7 @@ const PlayerScreen = () => {
                 setPlayerInfo={setPlayerInfo}
                 property='dob'
                 editMode={editMode}
+                required
               />
               <ProfileInput
                 label='Federation ID'
@@ -264,6 +281,7 @@ const PlayerScreen = () => {
                 property='phone_number'
                 editMode={editMode}
                 hidden
+                required
               />
             </div>
             <div className='col p-0 m-0'>
@@ -278,6 +296,7 @@ const PlayerScreen = () => {
                   { name: 'Right', code: 'R' },
                 ]}
                 hidden
+                required
               />
               <ProfileInput
                 label='Weight (kg)'
@@ -294,6 +313,7 @@ const PlayerScreen = () => {
                 editMode={editMode}
                 type='number'
                 hidden
+                required
               />
             </div>
           </div>

@@ -1,11 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-
-import Header from './Header/Header'
-import Sidebar from './Sidebar/Sidebar'
-import Footer from './Footer'
 import { Outlet, useNavigate } from 'react-router-dom'
 import TopBar from '../../infrastrucrure/layout/components/topbar.component'
-import { Button } from 'primereact/button'
 import Warning from '../../infrastrucrure/layout/components/warning.component'
 import SideMenu from '../../infrastrucrure/layout/components/side-menu.component'
 import Container from '../../infrastrucrure/layout/components/container.component'

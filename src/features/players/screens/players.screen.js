@@ -14,6 +14,8 @@ import server from '../../../server'
 import { formatCurrency, formatDate } from '../../../components/shared/utils'
 
 export default function PlayersScreen() {
+  document.title = 'Players | Speedball Hub'
+
   const dt = useRef(null)
 
   const [manufacturers, setManufacturers] = useState()
