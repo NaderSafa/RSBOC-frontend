@@ -52,7 +52,6 @@ const EventScreen = () => {
       new Date() >= new Date(eventDetails?.registration_start_date) &&
       new Date() <= new Date(eventDetails?.registration_end_date)
     ) {
-      console.log('sdgdfs')
       setOpen(true)
     }
   }, [eventDetails])
@@ -224,6 +223,14 @@ const EventScreen = () => {
               <Container className='lg:mt-2'>
                 <h2 className='text-base mt-0'>Additional Info</h2>
                 <div className='ml-2 text-black-alpha-80'>
+                  <div className='mb-1'>
+                    <h3 className='text-base font-medium m-0 mr-2 p-0 inline'>
+                      Fees:
+                    </h3>
+                    <p className='inline m-0 p-0'>
+                      {eventDetails?.fees + ' ' + eventDetails?.currency}
+                    </p>
+                  </div>
                   <div className='mb-1'>
                     <h3 className='text-base font-medium m-0 mr-2 p-0 inline'>
                       Best of:
