@@ -50,7 +50,13 @@ const MainLayout = () => {
         !user.phone_number ||
         !user.dob) && <Warning msg='Please complete your profile info!' />}
       {!user.verified && (
-        <Warning msg='Please verify your email address!' color='bg-red-300' />
+        <>
+          <Warning
+            msg='Please verify your email address!'
+            color='bg-red-300'
+            email
+          />
+        </>
       )}
 
       <div className='mx-2 md:mx-4'>

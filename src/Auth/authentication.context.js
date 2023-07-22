@@ -99,8 +99,9 @@ export const AuthenticationContextProvider = ({ children }) => {
           summary: 'User Created',
           detail: response.data.message,
         })
+        setIsLoading(false)
 
-        onLogin(email, password)
+        // onLogin(email, password)
       })
       .catch((error) => {
         console.log(error)
@@ -109,6 +110,7 @@ export const AuthenticationContextProvider = ({ children }) => {
           summary: 'Error in Registering',
           detail: error.response.data.message,
         })
+        setIsLoading(false)
       })
   }
 
