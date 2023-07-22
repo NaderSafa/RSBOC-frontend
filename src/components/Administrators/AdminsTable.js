@@ -17,7 +17,7 @@ import { Toast } from 'primereact/toast'
 import { Toolbar } from 'primereact/toolbar'
 import DeleteAdmin from './DeleteAdmin'
 
-document.title = 'Administrators | Speedball Hub'
+document.title = 'Speedball Like Never Before'
 export default function AdminsTable() {
   let emptyAdmin = {
     email: '',
