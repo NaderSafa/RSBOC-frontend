@@ -5,6 +5,8 @@ import { Calendar } from 'primereact/calendar'
 import { SelectButton } from 'primereact/selectbutton'
 import ReactCountryFlag from 'react-country-flag'
 import SelectCountry from './select-country.component'
+import SelectClub from './select-club.component'
+import server from '../../../server'
 
 const ProfileInput = ({
   label,
@@ -15,17 +17,32 @@ const ProfileInput = ({
   type,
   options,
   hidden,
+  userData,
 }) => {
   const { user } = useContext(AuthenticationContext)
   const [value, setValue] = useState(
     property === 'dob' && !user.dob ? new Date('1/1/2000') : user[property]
   )
+  const [clubEmblem, setClubEmblem] = useState()
   const [error, setError] = useState()
 
   useEffect(() => {
     setPlayerInfo((prevState) => {
       return { ...prevState, [property]: value }
     })
+
+    if (property === 'club' && value) {
+      server
+        .get(`club/${value}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(
+              'SPEEDBALL_HUB::TOKEN'
+            )}`,
+          },
+        })
+        .then((res) => setClubEmblem(res.data.club.image_url))
+        .catch((e) => console.log(e))
+    }
   }, [value, property, setPlayerInfo])
 
   const handleChange = (e) => setValue(e.target.value)
@@ -66,6 +83,9 @@ const ProfileInput = ({
   const renderCountryInput = () => (
     <SelectCountry selectedCountry={value} setSelectedCountry={setValue} />
   )
+  const renderClubInput = () => (
+    <SelectClub selectedClub={value} setSelectedClub={setValue} />
+  )
 
   const renderTextInput = () => (
     <InputText
@@ -87,6 +107,8 @@ const ProfileInput = ({
         return renderSelectInput()
       case 'country':
         return renderCountryInput()
+      case 'club':
+        return renderClubInput()
 
       default:
         return renderTextInput()
@@ -95,7 +117,7 @@ const ProfileInput = ({
 
   return (
     <div
-      className={`flex mb-${
+      className={`inline flex mb-${
         (value && !hidden && property !== 'full_name') || editMode ? '2' : '0'
       } align-items-center ${editMode ? 'grid' : ''}`}
     >
@@ -110,33 +132,47 @@ const ProfileInput = ({
         </div>
       )}
 
-      <div className={`flex flex-column ${editMode ? 'col' : ''}`}>
+      <div className={`inline flex flex-column ${editMode ? 'col' : ''}`}>
         {editMode ? (
           renderInput()
-        ) : hidden ? null : !user[property] ? null : type === 'country' ? (
-          user[property] && <ReactCountryFlag countryCode={user[property]} />
+        ) : hidden ? null : !userData[property] ? null : type === 'club' ? (
+          userData[property] && (
+            <div className='flex'>
+              <div
+                className={`inline bg-cover bg-center flex align-items-center justify-content-center h-1rem w-1rem border-circle p-2 mr-1`}
+                shape='circle'
+                style={{
+                  backgroundImage: `url(${clubEmblem})`,
+                }}
+              />
+              <ReactCountryFlag countryCode={userData.country} />
+            </div>
+          )
         ) : property === 'dob' ? (
           <p className='m-0 p-0'>{`${
-            new Date().getFullYear() - new Date(user[property]).getFullYear()
+            new Date().getFullYear() -
+            new Date(userData[property]).getFullYear()
           } years`}</p>
         ) : property === 'gender' ? (
           <p className='m-0 p-0'>
-            {user[property] === 'M' ? 'Male' : 'Female'}
+            {userData[property] === 'M' ? 'Male' : 'Female'}
           </p>
         ) : (
           <>
-            {user[property] && (
-              <p
-                className={`text-${
-                  property === 'full_name' ? 'xl lg:text-2xl' : 'sm'
-                } font-medium p-0 m-0`}
-              >
-                {`${user[property]} ${
-                  property === 'full_name' && user?.nick_name
-                    ? '( ' + user?.nick_name + ' )'
-                    : ''
-                }`}
-              </p>
+            {userData[property] && (
+              <>
+                <p
+                  className={`text-${
+                    property === 'full_name' ? 'xl lg:text-2xl' : 'sm'
+                  } font-medium p-0 m-0`}
+                >
+                  {`${userData[property]} ${
+                    property === 'full_name' && userData?.nick_name
+                      ? '( ' + userData?.nick_name + ' )'
+                      : ''
+                  }`}
+                </p>
+              </>
             )}
           </>
         )}

@@ -79,7 +79,7 @@ export default function PlayersDropdown({
         filter
         valueTemplate={selectedPlayerTemplate}
         itemTemplate={countryOptionTemplate}
-        className='w-full text-sm border-0 outline-none mt-2 lg:mt-0'
+        className='w-full text-sm border-0 outline-none mt-2 md:mt-0'
         // className='w-full md:w-14rem'
         pt={{
           root: {

@@ -20,9 +20,29 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [error, setError] = useState(null)
   const [isAdmin, setIsAdmin] = useState(null)
+  const [isProfileComplete, setIsProfileComplete] = useState(true)
   const [toastStatus, setToastStatus] = useState({})
 
   const toast = useRef()
+
+  useEffect(() => {
+    if (user) {
+      if (
+        !user.height ||
+        !user.profile_picture_url ||
+        !user.preferred_hand ||
+        !user.country ||
+        !user.gender ||
+        !user.phone_number ||
+        !user.dob ||
+        !user.club
+      ) {
+        setIsProfileComplete(false)
+      } else {
+        setIsProfileComplete(true)
+      }
+    }
+  }, [user])
 
   useEffect(() => {
     if (toastStatus !== {}) {
@@ -360,6 +380,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         accessToken,
         toastStatus,
         screenLoading,
+        isProfileComplete,
         setIsAdmin,
         setError,
         setUser,

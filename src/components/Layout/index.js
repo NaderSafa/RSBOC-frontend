@@ -10,7 +10,7 @@ const MainLayout = () => {
   const [menuCollapsed, setMenuCollapsed] = useState(false)
   const [menuItems, setMenuItems] = useState(['dsfdsg'])
 
-  const { user } = useContext(AuthenticationContext)
+  const { user, isProfileComplete } = useContext(AuthenticationContext)
   const navigate = useNavigate()
 
   const PLAYER_MENU_ITEMS = [
@@ -42,13 +42,9 @@ const MainLayout = () => {
 
   return (
     <React.Fragment>
-      {(!user.height ||
-        !user.profile_picture_url ||
-        !user.preferred_hand ||
-        !user.country ||
-        !user.gender ||
-        !user.phone_number ||
-        !user.dob) && <Warning msg='Please complete your profile info!' />}
+      {!isProfileComplete && (
+        <Warning msg='Please complete your profile info!' />
+      )}
       {!user.verified && (
         <>
           <Warning

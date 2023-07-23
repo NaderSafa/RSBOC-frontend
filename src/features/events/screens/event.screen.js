@@ -13,7 +13,7 @@ import { Tag } from 'primereact/tag'
 const EventScreen = () => {
   const { eventId } = useParams()
 
-  const { user } = useContext(AuthenticationContext)
+  const { user, isProfileComplete } = useContext(AuthenticationContext)
 
   const [loading, setLoading] = useState()
   const [eventDetails, setEventDetails] = useState()
@@ -196,7 +196,7 @@ const EventScreen = () => {
             </div>
             <div className='absolute right-0 mr-4'>{renderTag()}</div>
           </Container>
-          {eligable && open && (
+          {eligable && open && isProfileComplete && (
             <div className='w-full mt-2'>
               <div className='flex justify-content-end'>
                 <Button
