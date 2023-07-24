@@ -199,16 +199,22 @@ const EventScreen = () => {
           {eligable && open && isProfileComplete && (
             <div className='w-full mt-2'>
               <div className='flex justify-content-end'>
-                <Button
-                  label='Apply Now'
-                  icon='pi pi-sign-in'
-                  iconPos='right'
-                  size='small'
-                  text
-                  onClick={() => {
-                    navigate('register', { state: eventDetails })
-                  }}
-                />
+                {user.registered_events.indexOf(eventId) !== -1 ? (
+                  <p className='text-red-400'>
+                    You have already registered to this event!
+                  </p>
+                ) : (
+                  <Button
+                    label='Apply Now'
+                    icon='pi pi-sign-in'
+                    iconPos='right'
+                    size='small'
+                    text
+                    onClick={() => {
+                      navigate('register', { state: eventDetails })
+                    }}
+                  />
+                )}
               </div>
             </div>
           )}
