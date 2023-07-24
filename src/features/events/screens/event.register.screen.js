@@ -8,6 +8,8 @@ import PlayersDropdown from '../components/players.dropdown.component'
 import ProfileHero from '../../players/components/profile-hero.component'
 import { RadioButton } from 'primereact/radiobutton'
 import { AuthenticationContext } from '../../../Auth/authentication.context'
+import { MultiSelect } from 'primereact/multiselect'
+import { formatDate } from '../../../components/shared/utils'
 
 const EventRegisterScreen = () => {
   const { state: event } = useLocation()
@@ -18,6 +20,15 @@ const EventRegisterScreen = () => {
   const [file, setFile] = useState()
   const [registration, setRegistration] = useState()
   const [loading, setLoading] = useState(false)
+  const [selectedDates, setSelectedDates] = useState(
+    event.dates.map((date) => {
+      return {
+        name: formatDate(date),
+        code: date,
+      }
+    })
+  )
+  useEffect(() => console.log(selectedDates), [selectedDates])
 
   const { toast, user } = useContext(AuthenticationContext)
 
@@ -82,6 +93,7 @@ const EventRegisterScreen = () => {
                 currency: event.currency,
                 payment_method: paymentMethod,
                 payment_image_url: res.data.downloadURL,
+                preferred_dates: selectedDates.map((date) => date.code),
               },
               {
                 headers: {
@@ -125,6 +137,7 @@ const EventRegisterScreen = () => {
             fees: event.fees,
             currency: event.currency,
             payment_method: paymentMethod,
+            preferred_dates: selectedDates.map((date) => date.code),
           },
           {
             headers: {
@@ -195,6 +208,30 @@ const EventRegisterScreen = () => {
                   {event.fees + ' ' + event.currency}
                 </p>
               </div>
+              {event.dates.length > 1 && (
+                <div className='flex flex-column md:flex-row justify-content-center align-items-center mt-2'>
+                  <h4 className='m-0 md:mr-4 text-sm font-semibold'>
+                    Preferred Dates
+                  </h4>
+                  <div className='m-0 p-0 mt-1 md:mt-0'>
+                    <MultiSelect
+                      value={selectedDates}
+                      onChange={(e) => setSelectedDates(e.value)}
+                      options={event.dates.map((date) => {
+                        return {
+                          name: formatDate(date),
+                          code: date,
+                        }
+                      })}
+                      optionLabel='name'
+                      display='chip'
+                      placeholder='Select Cities'
+                      maxSelectedLabels={3}
+                      className='w-full md:w-20rem text-xs border-0 bg-transparent'
+                    />
+                  </div>
+                </div>
+              )}
               <div className='flex flex-column md:flex-row justify-content-center align-items-center mt-2'>
                 <h4 className='m-0 md:mr-4 text-sm font-semibold'>
                   Choose payment method
