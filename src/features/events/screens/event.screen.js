@@ -9,6 +9,7 @@ import { AuthenticationContext } from '../../../Auth/authentication.context'
 import { BsGenderFemale, BsGenderMale } from 'react-icons/bs'
 import { formatDate } from '../../../components/shared/utils'
 import { Tag } from 'primereact/tag'
+import RegistrationsTable from '../components/registrations.table.component'
 
 const EventScreen = () => {
   const { eventId } = useParams()
@@ -223,6 +224,7 @@ const EventScreen = () => {
             <div className='lg:col-9 lg:p-0 h-full'>
               <Container className='h-full overflow-scroll mt-2'>
                 <h2 className='text-base mt-0'>Participating Teams</h2>
+                <RegistrationsTable eventId={eventId} event={eventDetails} />
               </Container>
             </div>
             <div className='lg:col lg:p-0'>

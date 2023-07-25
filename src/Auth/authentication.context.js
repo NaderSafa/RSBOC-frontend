@@ -95,7 +95,7 @@ export const AuthenticationContextProvider = ({ children }) => {
   }
 
   //      2.2.1.2 - handle register
-  const onRegister = (name, email, password, repeatedPassword) => {
+  const onRegister = async (name, email, password, repeatedPassword) => {
     setIsLoading(true)
     if (password !== repeatedPassword) {
       toast.current.show({
@@ -106,7 +106,7 @@ export const AuthenticationContextProvider = ({ children }) => {
       setIsLoading(false)
       return
     }
-    server
+    await server
       .post('/users/register', {
         full_name: name,
         email: email,

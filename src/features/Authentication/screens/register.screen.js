@@ -1,6 +1,6 @@
 import { Button } from 'primereact/button'
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import AuthInput from '../components/auth-input.component'
 import { AuthenticationContext } from '../../../Auth/authentication.context'
 import AuthContainer from '../containers/auth.container'
@@ -13,6 +13,7 @@ const RegisterScreen = () => {
   const [inputError, setInputError] = useState(false)
 
   const { onRegister, isLoading } = useContext(AuthenticationContext)
+  const navigate = useNavigate()
 
   const onSubmitHandler = (e) => {
     !inputError &&
@@ -21,7 +22,13 @@ const RegisterScreen = () => {
         email.toLowerCase().trim(),
         password,
         repeatedPassword
-      )
+      ).then(() => {
+        navigate('/login')
+        setFullName('')
+        setEmail('')
+        setPassword('')
+        setRepeatedPassword('')
+      })
 
     e.preventDefault()
   }
