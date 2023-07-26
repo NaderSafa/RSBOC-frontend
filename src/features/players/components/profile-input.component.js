@@ -6,7 +6,6 @@ import { SelectButton } from 'primereact/selectbutton'
 import ReactCountryFlag from 'react-country-flag'
 import SelectCountry from './select-country.component'
 import SelectClub from './select-club.component'
-import server from '../../../server'
 
 const ProfileInput = ({
   label,
@@ -23,26 +22,12 @@ const ProfileInput = ({
   const [value, setValue] = useState(
     property === 'dob' && !user.dob ? new Date('1/1/2000') : user[property]
   )
-  const [clubEmblem, setClubEmblem] = useState()
   const [error, setError] = useState()
 
   useEffect(() => {
     setPlayerInfo((prevState) => {
       return { ...prevState, [property]: value }
     })
-
-    if (property === 'club' && value) {
-      server
-        .get(`club/${value}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem(
-              'SPEEDBALL_HUB::TOKEN'
-            )}`,
-          },
-        })
-        .then((res) => setClubEmblem(res.data.club.image_url))
-        .catch((e) => console.log(e))
-    }
   }, [value, property, setPlayerInfo])
 
   const handleChange = (e) => setValue(e.target.value)
@@ -138,13 +123,15 @@ const ProfileInput = ({
         ) : hidden ? null : !userData[property] ? null : type === 'club' ? (
           userData[property] && (
             <div className='flex'>
-              <div
-                className={`inline bg-cover bg-center flex align-items-center justify-content-center h-1rem w-1rem border-circle p-2 mr-1`}
-                shape='circle'
-                style={{
-                  backgroundImage: `url(${clubEmblem})`,
-                }}
-              />
+              {userData?.club?.image_url && (
+                <div
+                  className={`inline bg-cover bg-center flex align-items-center justify-content-center h-1rem w-1rem border-circle p-2 mr-1`}
+                  shape='circle'
+                  style={{
+                    backgroundImage: `url(${userData.club.image_url})`,
+                  }}
+                />
+              )}
               <ReactCountryFlag countryCode={userData.country} />
             </div>
           )

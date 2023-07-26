@@ -13,7 +13,6 @@ const RegisterScreen = () => {
   const [inputError, setInputError] = useState(false)
 
   const { onRegister, isLoading } = useContext(AuthenticationContext)
-  const navigate = useNavigate()
 
   const onSubmitHandler = (e) => {
     !inputError &&
@@ -23,7 +22,6 @@ const RegisterScreen = () => {
         password,
         repeatedPassword
       ).then(() => {
-        navigate('/login')
         setFullName('')
         setEmail('')
         setPassword('')
