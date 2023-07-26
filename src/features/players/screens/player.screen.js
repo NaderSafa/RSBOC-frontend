@@ -342,9 +342,9 @@ const PlayerScreen = () => {
       //   )}
   // </Container>*/}
       {editMode && renderButtons()}
-      <div className='flex-column-reverse flex lg:gap-2 lg:flex-row lg:grid mt-2 lg:h-screen'>
-        <div className='lg:col-9 lg:p-0 h-full'>
-          <Container className='h-full overflow-scroll mt-2'>
+      <div className='flex-column-reverse flex lg:gap-2 lg:flex-row lg:grid mt-2'>
+        <div className='lg:col-9 lg:p-0'>
+          <Container className='mt-2'>
             <h2 className='text-base mt-0'>Latest Results</h2>
           </Container>
         </div>

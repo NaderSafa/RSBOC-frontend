@@ -41,7 +41,7 @@ const MainLayout = () => {
   )
 
   return (
-    <React.Fragment>
+    <div className='h-screen'>
       {!isProfileComplete && (
         <Warning msg='Please complete your profile info!' />
       )}
@@ -55,30 +55,29 @@ const MainLayout = () => {
         </>
       )}
 
-      <div className='mx-2 md:mx-4'>
+      <div className='h-full mx-2 md:mx-4'>
         <TopBar menuItems={menuItems} />
-        {
-          <div className='grid h-full'>
-            <div
-              className={`hidden lg:inline-block lg:col-${
-                menuCollapsed ? 1 : 2
-              } h-screen overflow-scroll`}
-            >
-              <Container className='h-full'>
-                <SideMenu
-                  menuCollapsed={menuCollapsed}
-                  setMenuCollapsed={setMenuCollapsed}
-                  menuItems={menuItems}
-                />
-              </Container>
-            </div>
-            <div className='col h-screen overflow-scroll'>
-              <Outlet />
-            </div>
+
+        <div className='grid h-full'>
+          <div
+            className={`hidden lg:inline-block lg:col-${
+              menuCollapsed ? 1 : 2
+            }  overflow-hidden`}
+          >
+            <Container className='h-full'>
+              <SideMenu
+                menuCollapsed={menuCollapsed}
+                setMenuCollapsed={setMenuCollapsed}
+                menuItems={menuItems}
+              />
+            </Container>
           </div>
-        }
+          <div className='col h-full overflow-scroll'>
+            <Outlet />
+          </div>
+        </div>
       </div>
-    </React.Fragment>
+    </div>
   )
 }
 

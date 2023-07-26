@@ -61,7 +61,7 @@ const AuthContainer = ({ children }) => {
         )
       ) : (
         <div className='grid h-screen w-screen m-0'>
-          <div className='flex flex-column justify-content-between col-12 md:col-6 lg:col-4 h-screen p-5 bg-white overflow-scroll'>
+          <div className='flex flex-column justify-content-between col-12 md:col-6 lg:col-4 h-screen p-5 bg-white overflow-hidden'>
             <div className='text-center mt-3 mb-4'>
               <Image src={logoHorizontal} width='70%' />
             </div>
@@ -73,7 +73,7 @@ const AuthContainer = ({ children }) => {
             </div>
           </div>
           <div
-            className='hidden md:inline-block col bg-black-alpha-90 h-screen overflow-scroll bg-cover bg-center p-0'
+            className='hidden md:inline-block col bg-black-alpha-90 h-screen overflow-hidden bg-cover bg-center p-0'
             style={{ backgroundImage: `url(${shownBackground})` }}
           >
             <div className='flex flex-column bg-black-alpha-40 col h-screen justify-content-end align-items-center px-5 pt-8 pb-3'>
