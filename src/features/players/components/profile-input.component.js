@@ -6,6 +6,7 @@ import { SelectButton } from 'primereact/selectbutton'
 import ReactCountryFlag from 'react-country-flag'
 import SelectCountry from './select-country.component'
 import SelectClub from './select-club.component'
+import { MdOutlineVerified } from 'react-icons/md'
 
 const ProfileInput = ({
   label,
@@ -37,13 +38,14 @@ const ProfileInput = ({
 
   const handleFocus = () => setError(null)
 
-  const renderDateInput = () => (
+  const renderDateInput = (disabled) => (
     <Calendar
       value={new Date(value)}
       placeholder={label}
       inputClassName='text-sm p-0 bg-transparent font-semibold'
       onChange={handleChange}
       showButtonBar
+      disabled={disabled}
     />
   )
 
@@ -68,6 +70,7 @@ const ProfileInput = ({
   const renderCountryInput = () => (
     <SelectCountry selectedCountry={value} setSelectedCountry={setValue} />
   )
+
   const renderClubInput = () => (
     <SelectClub selectedClub={value} setSelectedClub={setValue} />
   )
@@ -87,7 +90,11 @@ const ProfileInput = ({
   const renderInput = () => {
     switch (type) {
       case 'date':
-        return renderDateInput()
+        if (user.verified) {
+          return renderDateInput('disable')
+        } else {
+          return renderDateInput()
+        }
       case 'select':
         return renderSelectInput()
       case 'country':
@@ -147,7 +154,7 @@ const ProfileInput = ({
         ) : (
           <>
             {userData[property] && (
-              <>
+              <div className='flex text-align-center justify-content-center'>
                 <p
                   className={`text-${
                     property === 'full_name' ? 'xl lg:text-2xl' : 'sm'
@@ -159,7 +166,10 @@ const ProfileInput = ({
                       : ''
                   }`}
                 </p>
-              </>
+                {property === 'full_name' && userData.approved && (
+                  <MdOutlineVerified className='text-blue-600 ml-2' />
+                )}
+              </div>
             )}
           </>
         )}

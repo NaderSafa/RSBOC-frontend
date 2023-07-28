@@ -210,15 +210,17 @@ const ProfileHero = ({
                   editMode={editMode}
                   required
                 />
-                <ProfileInput
-                  label='Federation ID'
-                  userData={userData}
-                  setPlayerInfo={setPlayerInfo}
-                  property='national_federation_id'
-                  editMode={editMode}
-                  type='number'
-                  hidden
-                />
+                {user.approved === false && (
+                  <ProfileInput
+                    label='Federation ID'
+                    userData={userData}
+                    setPlayerInfo={setPlayerInfo}
+                    property='national_federation_id'
+                    editMode={editMode}
+                    type='number'
+                    hidden
+                  />
+                )}
                 <ProfileInput
                   label='Phone'
                   userData={userData}

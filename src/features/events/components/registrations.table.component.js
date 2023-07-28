@@ -9,6 +9,7 @@ import { Button } from 'primereact/button'
 
 import MainContentLayout from '../../../components/Layout/MainContentLayout'
 import { InputFieldTemplate } from '../../../components/shared/FilterTemplates'
+import { Link } from 'react-router-dom'
 
 const RegistrationsTable = ({ eventId, event }) => {
   const dt = useRef(null)
@@ -131,18 +132,20 @@ const RegistrationsTable = ({ eventId, event }) => {
 
   // BODY TEMPLATES
   const playerBodyTemplate = (data, i) => (
-    <div className='flex align-items-center'>
-      {data.players[i]?.club?.image_url && (
-        <div
-          className={`inline bg-cover bg-center flex align-items-center justify-content-center h-1rem w-1rem border-circle p-2 mr-1`}
-          shape='circle'
-          style={{
-            backgroundImage: `url(${data.players[i].club.image_url})`,
-          }}
-        />
-      )}
-      <p className='m-0 p-0 ml-1'>{data.players[i].full_name}</p>
-    </div>
+    <Link to={`/players/${data.players[i]?._id}`} className='text-gray-700'>
+      <div className='flex align-items-center'>
+        {data.players[i]?.club?.image_url && (
+          <div
+            className={`inline bg-cover bg-center flex align-items-center justify-content-center h-1rem w-1rem border-circle p-2 mr-1`}
+            shape='circle'
+            style={{
+              backgroundImage: `url(${data.players[i].club.image_url})`,
+            }}
+          />
+        )}
+        <p className='m-0 p-0 ml-1'>{data.players[i].full_name}</p>
+      </div>
+    </Link>
   )
 
   // FILTER TEMPLATES
