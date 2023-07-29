@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 export default function SideMenu({
   menuCollapsed,
@@ -26,16 +26,27 @@ export default function SideMenu({
             />
           </div>
           {menuItems?.map((item, idx) => (
-            <div
-              className={`flex overflow-hidden text-overflow-ellipsis white-space-nowrap justify-content-${
-                menuCollapsed ? 'center' : 'start'
-              } align-items-center`}
-              style={{ height: 40 }}
+            <NavLink
+              // className={`flex overflow-hidden text-overflow-ellipsis white-space-nowrap justify-content-${
+              //   menuCollapsed ? 'center' : 'start'
+              // } align-items-center`}
+              className={({ isActive, isPending }) =>
+                `flex overflow-hidden text-overflow-ellipsis white-space-nowrap justify-content-${
+                  menuCollapsed ? 'center' : 'start'
+                } align-items-center ${
+                  isPending
+                    ? 'text-red-300'
+                    : isActive
+                    ? 'text-red-400'
+                    : 'text-black-alpha-80'
+                }`
+              }
+              style={{ height: menuCollapsed ? 40 : 35 }}
               key={idx}
-              onClick={item.command}
+              to={item.to}
             >
               <div
-                className={`flex align-items-center py-1 cursor-pointer transition-colors text-black-alpha-80 transition-duration-300 hover:text-red-300`}
+                className={`flex align-items-center py-1 cursor-pointer transition-colors transition-duration-300 hover:text-red-300`}
               >
                 <i
                   className={`${item.icon} my-0 ${
@@ -50,7 +61,7 @@ export default function SideMenu({
                   {item.label}
                 </h3>
               </div>
-            </div>
+            </NavLink>
           ))}
         </div>
 

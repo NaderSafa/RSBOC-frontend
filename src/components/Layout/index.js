@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import TopBar from '../../infrastrucrure/layout/components/topbar.component'
 import Warning from '../../infrastrucrure/layout/components/warning.component'
 import SideMenu from '../../infrastrucrure/layout/components/side-menu.component'
@@ -11,32 +11,50 @@ const MainLayout = () => {
   const [menuItems, setMenuItems] = useState(['dsfdsg'])
 
   const { user, isProfileComplete } = useContext(AuthenticationContext)
-  const navigate = useNavigate()
 
   const PLAYER_MENU_ITEMS = [
     {
       label: 'Dashboard',
       icon: 'pi pi-home',
-      command: () => navigate('/'),
+      to: '/',
     },
     {
       label: 'Profile',
       icon: 'pi pi-user',
-      command: () => navigate('/profile'),
+      to: '/profile',
     },
     {
       label: 'Players',
       icon: 'pi pi-users',
-      command: () => navigate('/players'),
+      to: '/players',
     },
     {
       label: 'Championships',
       icon: 'pi pi-sitemap',
-      command: () => navigate('/championships'),
+      to: '/championships',
     },
   ]
+
+  const CHAMPIONSHIP_MENU_ITEMS = [
+    {
+      label: 'Dashboard',
+      icon: 'pi pi-home',
+      to: '/champ',
+    },
+    {
+      label: 'Profile',
+      icon: 'pi pi-user',
+      to: '/profile',
+    },
+  ]
+
   useEffect(
-    () => (user.role === 'player' ? setMenuItems(PLAYER_MENU_ITEMS) : null),
+    () =>
+      user.role === 'player'
+        ? setMenuItems(PLAYER_MENU_ITEMS)
+        : user.role === 'championship'
+        ? setMenuItems(CHAMPIONSHIP_MENU_ITEMS)
+        : '',
     []
   )
 

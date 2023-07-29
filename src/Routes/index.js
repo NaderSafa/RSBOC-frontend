@@ -33,6 +33,8 @@ import EventsScreen from '../features/events/screens/events.screen'
 import VerifiedScreen from '../features/Authentication/screens/verified.screen'
 import EventRegisterScreen from '../features/events/screens/event.register.screen'
 import ForgotPasswordScreen from '../features/Authentication/screens/forgot-password.screen'
+import ChampionshipDashboard from '../features/championships/screens/championship.dashboard.screen'
+import EventManageScreen from '../features/events/screens/event.manage.screen'
 
 export const router = createBrowserRouter([
   {
@@ -65,9 +67,23 @@ export const router = createBrowserRouter([
                 path: 'events/:eventId/register',
                 element: <EventRegisterScreen />,
               },
+              {
+                path: 'events/:eventId/manage',
+                element: <EventManageScreen />,
+              },
               { path: 'orders', element: <PharmacyOrders /> },
               { path: 'orders/:orderId', element: <OrderDetails /> },
               { path: 'manufacturers', element: <ManufacturersPharmacy /> },
+            ],
+          },
+          {
+            path: 'champ',
+            element: <ChampionshipDashboard />,
+            children: [
+              {
+                path: 'events/:eventId/manage',
+                element: <EventManageScreen />,
+              },
             ],
           },
           {

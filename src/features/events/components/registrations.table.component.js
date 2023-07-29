@@ -38,7 +38,7 @@ const RegistrationsTable = ({ eventId, event }) => {
         },
       })
       .then((res) => {
-        console.log(res.data.registrations)
+        // console.log(res.data.registrations)
         setData(res.data.registrations)
         setTableLoading(false)
       })

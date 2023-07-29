@@ -168,7 +168,11 @@ const EventScreen = () => {
                   </div>
                   <div className='mb-1'>
                     <h3 className='text-base font-medium m-0 mr-2 p-0 inline'>
-                      Max players/teams per group:
+                      {`Max ${
+                        eventDetails?.event_type?.players_per_team === 1
+                          ? 'players'
+                          : 'teams'
+                      } per group:`}
                     </h3>
                     <p className='inline m-0 p-0'>
                       {eventDetails?.event_type?.max_group_teams}
@@ -176,7 +180,11 @@ const EventScreen = () => {
                   </div>
                   <div className='mb-1'>
                     <h3 className='text-base font-medium m-0 mr-2 p-0 inline'>
-                      Min players/teams per group:
+                      {`Min ${
+                        eventDetails?.event_type?.players_per_team === 1
+                          ? 'players'
+                          : 'teams'
+                      } per group:`}
                     </h3>
                     <p className='inline m-0 p-0'>
                       {eventDetails?.event_type?.min_group_teams}
@@ -197,7 +205,7 @@ const EventScreen = () => {
             </div>
             <div className='absolute right-0 mr-4'>{renderTag()}</div>
           </Container>
-          {eligable && open && isProfileComplete && (
+          {user.role === 'player' && eligable && open && isProfileComplete ? (
             <div className='w-full mt-2'>
               <div className='flex justify-content-end'>
                 {user.registered_events.indexOf(eventId) !== -1 ? (
@@ -216,6 +224,21 @@ const EventScreen = () => {
                     }}
                   />
                 )}
+              </div>
+            </div>
+          ) : (
+            <div className='w-full mt-2'>
+              <div className='flex justify-content-end'>
+                <Button
+                  label='Manage Event'
+                  icon='pi pi-sign-in'
+                  iconPos='right'
+                  size='small'
+                  text
+                  onClick={() => {
+                    navigate('manage', { state: eventDetails })
+                  }}
+                />
               </div>
             </div>
           )}

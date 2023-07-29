@@ -28,14 +28,15 @@ export const AuthenticationContextProvider = ({ children }) => {
   useEffect(() => {
     if (user) {
       if (
-        !user.height ||
-        !user.profile_picture_url ||
-        !user.preferred_hand ||
-        !user.country ||
-        !user.gender ||
-        !user.phone_number ||
-        !user.dob ||
-        !user.club
+        user.role === 'player' &&
+        (!user.height ||
+          !user.profile_picture_url ||
+          !user.preferred_hand ||
+          !user.country ||
+          !user.gender ||
+          !user.phone_number ||
+          !user.dob ||
+          !user.club)
       ) {
         setIsProfileComplete(false)
       } else {

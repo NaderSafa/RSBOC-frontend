@@ -1,23 +1,21 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Tag } from 'primereact/tag'
 import { BsGenderFemale, BsGenderMale } from 'react-icons/bs'
+import { useNavigate } from 'react-router-dom'
 
 import Container from '../../../infrastrucrure/layout/components/container.component'
 import server from '../../../server'
 import { formatDate } from '../../../components/shared/utils'
-import { Navigate, useNavigate } from 'react-router-dom'
-import { AuthenticationContext } from '../../../Auth/authentication.context'
 
-const PlayerDashboard = () => {
+const ChampionshipDashboard = () => {
   const [events, setEvents] = useState([])
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(true)
   const [selectedEvent, setSelectedEvent] = useState()
 
   const navigate = useNavigate()
-  const { user } = useContext(AuthenticationContext)
 
   useEffect(() => {
     setLoading(true)
@@ -103,62 +101,46 @@ const PlayerDashboard = () => {
     </div>
   )
 
-  const onRowSelect = (e) => navigate(`events/${e.data._id}`)
+  const onRowSelect = (e) => navigate(`/events/${e.data._id}`)
 
   document.title = 'Dashboard | Speedball Hub'
 
   return (
     <>
-      {user.role === 'player' ? (
-        <>
-          <Container className='w-full lg:py-5'>
-            <DataTable
-              dataKey='_id'
-              value={events}
-              header={header}
-              loading={loading}
-              tableStyle={{ minWidth: '45rem' }}
-              size='small'
-              onRowSelect={onRowSelect}
-              selectionMode='single'
-              selection={selectedEvent}
-              onSelectionChange={(e) => setSelectedEvent(e.value)}
-            >
-              <Column
-                field='tournament.short_name'
-                header='Tournament'
-                sortable
-              />
-              <Column field='name' header='Event' sortable />
-              <Column field='event_type.head' header='Type' />
-              <Column
-                field='gender'
-                header='Gender'
-                body={genderBodyTemplate}
-              />
-              <Column field='event_type.tournament_format' header='Format' />
-              <Column
-                field='age_limit'
-                header='Age Limit'
-                body={ageLimitBodyTemplate}
-              />
-              <Column
-                field='dates'
-                sortable
-                header='Dates'
-                body={priceBodyTemplate}
-              />
-              <Column header='Status' body={statusBodyTemplate} />
-            </DataTable>
-          </Container>
-        </>
-      ) : user.role === 'championship' ? (
-        <Navigate to='champ' />
-      ) : (
-        ''
-      )}
+      <Container className='w-full lg:py-5'>
+        <DataTable
+          dataKey='_id'
+          value={events}
+          header={header}
+          loading={loading}
+          tableStyle={{ minWidth: '45rem' }}
+          size='small'
+          onRowSelect={onRowSelect}
+          selectionMode='single'
+          selection={selectedEvent}
+          onSelectionChange={(e) => setSelectedEvent(e.value)}
+        >
+          <Column field='tournament.short_name' header='Tournament' sortable />
+          <Column field='name' header='Event' sortable />
+          <Column field='event_type.head' header='Type' />
+          <Column field='gender' header='Gender' body={genderBodyTemplate} />
+          <Column field='event_type.tournament_format' header='Format' />
+          <Column
+            field='age_limit'
+            header='Age Limit'
+            body={ageLimitBodyTemplate}
+          />
+          <Column
+            field='dates'
+            sortable
+            header='Dates'
+            body={priceBodyTemplate}
+          />
+          <Column header='Status' body={statusBodyTemplate} />
+        </DataTable>
+      </Container>
     </>
   )
 }
 
-export default PlayerDashboard
+export default ChampionshipDashboard
