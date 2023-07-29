@@ -90,7 +90,7 @@ const ProfileInput = ({
   const renderInput = () => {
     switch (type) {
       case 'date':
-        if (user.verified) {
+        if (user.approved) {
           return renderDateInput('disable')
         } else {
           return renderDateInput()
