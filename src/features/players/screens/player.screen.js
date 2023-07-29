@@ -28,7 +28,9 @@ const PlayerScreen = () => {
       server
         .get(`users/${playerId}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            Authorization: `Bearer ${localStorage.getItem(
+              'SPEEDBALL_HUB::TOKEN'
+            )}`,
           },
         })
         .then((res) => setUserData(res.data.user))
