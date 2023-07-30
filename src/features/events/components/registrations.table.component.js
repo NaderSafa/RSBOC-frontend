@@ -35,6 +35,7 @@ const RegistrationsTable = ({ eventId, event }) => {
         },
         params: {
           event: eventId,
+          approved: false,
         },
       })
       .then((res) => {
