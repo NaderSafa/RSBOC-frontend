@@ -226,7 +226,7 @@ const EventScreen = () => {
                 )}
               </div>
             </div>
-          ) : (
+          ) : user.role === 'championship' ? (
             <div className='w-full mt-2'>
               <div className='flex justify-content-end'>
                 <Button
@@ -241,7 +241,7 @@ const EventScreen = () => {
                 />
               </div>
             </div>
-          )}
+          ) : null}
 
           <div className='flex-column-reverse flex lg:gap-2 lg:flex-row lg:grid mt-2'>
             <div className='lg:col-9 lg:p-0'>

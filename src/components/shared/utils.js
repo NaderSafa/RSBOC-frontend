@@ -24,3 +24,22 @@ export const ToastPopUp = (name, severity, summary, msg) => {
     detail: msg,
   })
 }
+
+// String Functions
+export const removeExtraSpaces = (input) => {
+  return input.replace(/\s+/g, ' ').trim()
+}
+
+export const trimText = (input, maxLength) => {
+  if (input.length <= maxLength) {
+    return input
+  } else {
+    return input.slice(0, maxLength).trim() + '...'
+  }
+}
+
+export const capitalizeWords = (input) => {
+  return input.replace(/\b\w/g, function (char) {
+    return char.toUpperCase()
+  })
+}

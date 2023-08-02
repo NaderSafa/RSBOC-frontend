@@ -189,7 +189,6 @@ const RegistrationsTable = ({ eventId, event }) => {
 
   const onCellEditComplete = (e) => {
     let { rowData, newValue, field, originalEvent: event } = e
-    console.log(newValue)
     if (newValue > 0) {
       rowData[field] = newValue
       server
@@ -205,7 +204,6 @@ const RegistrationsTable = ({ eventId, event }) => {
           }
         )
         .then((res) => {
-          console.log(res)
           toast.current.show({
             severity: 'success',
             summary: 'Points updated',
@@ -232,7 +230,7 @@ const RegistrationsTable = ({ eventId, event }) => {
   />
 */}
       <DataTable
-        editMode='cell'
+        editMode={user.role === 'championship' && 'cell'}
         // onRowEditComplete={onRowEditComplete}
         ref={dt}
         value={data}
@@ -274,7 +272,7 @@ const RegistrationsTable = ({ eventId, event }) => {
           // sortable
           // filterElement={moleculeFilterElement}
         />
-        {user.role === 'championship' && (
+        {user.role === 'championship' ? (
           <Column
             header='Points'
             field='points'
@@ -282,6 +280,8 @@ const RegistrationsTable = ({ eventId, event }) => {
             onCellEditComplete={onCellEditComplete}
             sortable
           />
+        ) : (
+          <Column header='Points' field='points' sortable />
         )}
       </DataTable>
     </MainContentLayout>

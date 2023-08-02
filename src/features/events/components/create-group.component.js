@@ -24,7 +24,7 @@ const CreateGroup = ({ event }) => {
         },
         params: {
           event: eventId,
-          // group: true,
+          group: true,
         },
       })
       .then((res) => {
