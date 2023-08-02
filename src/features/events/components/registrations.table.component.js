@@ -193,7 +193,17 @@ const RegistrationsTable = ({ eventId, event }) => {
     if (newValue > 0) {
       rowData[field] = newValue
       server
-        .patch(`/registration/${rowData._id}`, { [field]: newValue })
+        .patch(
+          `/registration/${rowData._id}`,
+          { [field]: newValue },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem(
+                'SPEEDBALL_HUB::TOKEN'
+              )}`,
+            },
+          }
+        )
         .then((res) => {
           console.log(res)
           toast.current.show({
