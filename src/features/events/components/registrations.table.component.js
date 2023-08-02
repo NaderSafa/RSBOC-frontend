@@ -1,15 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import server from '../../../server'
 import { FilterMatchMode, FilterOperator } from 'primereact/api'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
-import { Toolbar } from 'primereact/toolbar'
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 
 import MainContentLayout from '../../../components/Layout/MainContentLayout'
 import { InputFieldTemplate } from '../../../components/shared/FilterTemplates'
 import { Link } from 'react-router-dom'
+import { AuthenticationContext } from '../../../Auth/authentication.context'
+import { InputNumber } from 'primereact/inputnumber'
 
 const RegistrationsTable = ({ eventId, event }) => {
   const dt = useRef(null)
@@ -23,6 +24,7 @@ const RegistrationsTable = ({ eventId, event }) => {
   const [tableLoading, setTableLoading] = useState(false)
   const [clearBtnDisabled, setClearBtnDisabled] = useState(true)
   const [globalFilterValue, setGlobalFilterValue] = useState('')
+  const { user, toast } = useContext(AuthenticationContext)
 
   const getData = () => {
     setTableLoading(true)
@@ -171,14 +173,57 @@ const RegistrationsTable = ({ eventId, event }) => {
     />
   )
 
+  const pointsEditor = (options) => {
+    // console.log(options)
+    return (
+      <InputNumber
+        value={options.value}
+        onValueChange={(e) => options.editorCallback(e.value)}
+      />
+    )
+  }
+
+  const onRowEditComplete = (e) => {
+    console.log(e)
+  }
+
+  const onCellEditComplete = (e) => {
+    let { rowData, newValue, field, originalEvent: event } = e
+    console.log(newValue)
+    if (newValue > 0) {
+      rowData[field] = newValue
+      server
+        .patch(`/registration/${rowData._id}`, { [field]: newValue })
+        .then((res) => {
+          console.log(res)
+          toast.current.show({
+            severity: 'success',
+            summary: 'Points updated',
+            detail: res.data.message,
+          })
+        })
+        .catch((err) =>
+          toast.current.show({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error in updating registration',
+          })
+        )
+    } else event.preventDefault()
+  }
+
   return (
     <MainContentLayout dt={dt}>
-      {/*<Toolbar
+      {/*
+      <Toolbar
         className='mb-2'
         start={topLeftToolbarTemplate}
         end={topRightToolbarTemplate}
-  />*/}
+  />
+*/}
       <DataTable
+        editMode='cell'
+        // onRowEditComplete={onRowEditComplete}
         ref={dt}
         value={data}
         paginator
@@ -217,8 +262,17 @@ const RegistrationsTable = ({ eventId, event }) => {
           showFilterMenuOptions={false}
           // filter
           // sortable
-          filterElement={moleculeFilterElement}
+          // filterElement={moleculeFilterElement}
         />
+        {user.role === 'championship' && (
+          <Column
+            header='Points'
+            field='points'
+            editor={(options) => pointsEditor(options)}
+            onCellEditComplete={onCellEditComplete}
+            sortable
+          />
+        )}
       </DataTable>
     </MainContentLayout>
   )
