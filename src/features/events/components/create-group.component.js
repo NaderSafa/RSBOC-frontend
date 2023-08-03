@@ -5,7 +5,7 @@ import server from '../../../server'
 import { Button } from 'primereact/button'
 import { AuthenticationContext } from '../../../Auth/authentication.context'
 
-const CreateGroup = ({ event }) => {
+const CreateGroup = ({ event, getGroupsData }) => {
   const { eventId } = useParams()
   const { toast } = useContext(AuthenticationContext)
 
@@ -84,7 +84,13 @@ const CreateGroup = ({ event }) => {
         },
       })
       .then((res) => {
-        console.log(res.data)
+        toast.current.show({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Group added successfully!',
+        })
+        getGroupsData()
+        // console.log(res.data.group)
         setTarget([])
         setLoading(false)
       })
