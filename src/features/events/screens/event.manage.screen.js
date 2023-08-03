@@ -35,16 +35,18 @@ const EventManageScreen = () => {
         <>
           <Container>
             <h2 className='text-lg text-black-alpha-70'>Create a group</h2>
-            <div className='flex justify-content-between align-items-end m-0 p-0'>
-              <p className='m-0 p-0 mr-3 text-sm'>
-                View all participating players/teams and create needed groups
-                easily by clicking the next button.
+            <div className='flex flex-column md:flex-row justify-content-between align-items-end m-0 p-0'>
+              <p className='m-0 p-0 md:mr-2 text-sm'>
+                {`View all participating ${
+                  event.event_type.players_per_team === 1 ? 'players' : 'teams'
+                } and create needed groups
+                easily by clicking the next button.`}
               </p>
               <Button
                 label='Create Group'
                 text
                 icon='pi pi-pencil'
-                className='m-0 w-10rem'
+                className='m-0 mt-2 md:mt-0'
                 size='small'
                 onClick={() => setShowCreateGroup(true)}
               />

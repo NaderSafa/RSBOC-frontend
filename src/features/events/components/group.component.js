@@ -46,7 +46,7 @@ const GroupComponent = ({ group, setGroups }) => {
     })
   }
   return (
-    <div className='col-6 pr-6'>
+    <div className='col-12 p-0 lg:col-6 lg:pr-6'>
       <div className='flex justify-content-between align-items-center'>
         <h3 className='text-base text-black-alpha-70'>{`Group ${group.name}`}</h3>
         <ConfirmDialog />
