@@ -104,21 +104,23 @@ const CreateGroup = ({ event, getGroupsData }) => {
     return (
       <div className='flex align-items-center'>
         <div
-          className={`inline bg-cover bg-center flex align-items-center justify-content-center h-1rem w-1rem border-circle p-2`}
+          className={`inline bg-cover bg-center flex align-items-center justify-content-center h-1rem w-1rem border-circle p-2 mr-1`}
           shape='circle'
           style={{
             backgroundImage: `url(${item.players[0].club.image_url})`,
           }}
         />
+        <p className='m-0 p-0 text-sm'>{`${item.players[0].full_name} - `}</p>
         <div
-          className={`inline bg-cover bg-center flex align-items-center justify-content-center h-1rem w-1rem border-circle p-2 mr-1`}
+          className={`inline bg-cover bg-center flex align-items-center justify-content-center h-1rem w-1rem border-circle p-2 mx-1`}
           shape='circle'
           style={{
             backgroundImage: `url(${item.players[1].club.image_url})`,
           }}
         />
+
         <p className='m-0 p-0 text-sm'>
-          {`${item.players[0].full_name} & ${item.players[1].full_name} ${
+          {`${item.players[1].full_name} ${
             item.points ? `(${item.points})` : ''
           }`}
         </p>
