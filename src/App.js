@@ -7,6 +7,7 @@ import { router } from './Routes'
 import './App.css'
 // import './scss/theme.scss'
 import { Toast } from 'primereact/toast'
+import { ConfirmDialog } from 'primereact/confirmdialog'
 
 function App() {
   const {
@@ -34,6 +35,7 @@ function App() {
         <RouterProvider className='App' router={router} />
       )}
       <Toast ref={toast} />
+      <ConfirmDialog />
     </>
   )
 }

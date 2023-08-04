@@ -137,3 +137,12 @@ input[type='file']::file-selector-button:hover {
 .p-steps .p-steps-item .p-menuitem-link {
   background: #ffffff00 !important;
 }
+
+/* TabMenu */
+
+.p-tabmenu
+  .p-tabmenu-nav
+  .p-tabmenuitem
+  .p-menuitem-link:not(.p-disabled):focus {
+  box-shadow: none !important;
+}

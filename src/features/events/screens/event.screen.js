@@ -10,6 +10,8 @@ import { BsGenderFemale, BsGenderMale } from 'react-icons/bs'
 import { formatDate } from '../../../components/shared/utils'
 import { Tag } from 'primereact/tag'
 import RegistrationsTable from '../components/registrations.table.component'
+import { TabMenu } from 'primereact/tabmenu'
+import GroupComponent from '../components/group.component'
 
 const EventScreen = () => {
   const { eventId } = useParams()
@@ -21,8 +23,39 @@ const EventScreen = () => {
   const [hovering, setHovering] = useState(false)
   const [eligable, setEligable] = useState(false)
   const [open, setOpen] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(0)
 
   const navigate = useNavigate()
+
+  const items = [
+    {
+      label:
+        eventDetails?.event_type?.players_per_event === 1 ? 'Players' : 'Teams',
+      icon: 'pi pi-fw pi-users',
+    },
+    { label: 'Groups', icon: 'pi pi-fw pi-sitemap' },
+    { label: 'Matches', icon: 'pi pi-fw pi-star' },
+  ]
+  const [groups, setGroups] = useState([])
+
+  const getGroupsData = () => {
+    server
+      .get(`/group/?event=${eventId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            'SPEEDBALL_HUB::TOKEN'
+          )}`,
+        },
+      })
+      .then((res) => setGroups(res.data.groups))
+      .catch((err) => console.log(err))
+  }
+
+  useEffect(() => {
+    getGroupsData()
+  }, [])
+
+  useEffect(() => console.log(activeIndex), [activeIndex])
 
   useEffect(() => {
     setLoading(true)
@@ -246,8 +279,26 @@ const EventScreen = () => {
           <div className='flex-column-reverse flex lg:gap-2 lg:flex-row lg:grid mt-2'>
             <div className='lg:col-9 lg:p-0'>
               <Container className=' mt-2'>
-                <h2 className='text-base mt-0'>Participating Teams</h2>
-                <RegistrationsTable eventId={eventId} event={eventDetails} />
+                <TabMenu
+                  model={items}
+                  activeIndex={activeIndex}
+                  onTabChange={(e) => setActiveIndex(e.index)}
+                  className='mb-2'
+                />
+                {items[activeIndex].label === 'Teams' ||
+                items[activeIndex].label === 'Players' ? (
+                  <RegistrationsTable eventId={eventId} event={eventDetails} />
+                ) : items[activeIndex].label === 'Groups' ? (
+                  <div className='grid'>
+                    {groups.map((group) => (
+                      <GroupComponent
+                        key={group._id}
+                        group={group}
+                        setGroups={setGroups}
+                      />
+                    ))}
+                  </div>
+                ) : null}
               </Container>
             </div>
             <div className='lg:col lg:p-0'>

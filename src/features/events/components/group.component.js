@@ -4,7 +4,7 @@ import server from '../../../server'
 import { AuthenticationContext } from '../../../Auth/authentication.context'
 
 const GroupComponent = ({ group, setGroups }) => {
-  const { toast } = useContext(AuthenticationContext)
+  const { toast, user } = useContext(AuthenticationContext)
 
   const accept = () => {
     server
@@ -43,13 +43,19 @@ const GroupComponent = ({ group, setGroups }) => {
     })
   }
   return (
-    <div className='col-12 lg:col-6 lg:pr-6 '>
+    <div
+      className={`col-12 ${
+        ['admin', 'championship'].includes(user.role) ? 'lg:col-6 lg:pr-6' : ''
+      }`}
+    >
       <div className='flex justify-content-between align-items-center'>
         <h3 className='text-base text-black-alpha-70'>{`Group ${group.name}`}</h3>
-        <i
-          className='pi pi-trash cursuer-pointer transition-colors text-red-300 hover:text-red-600 transition-duration-300'
-          onClick={confirm}
-        />
+        {['admin', 'championship'].includes(user.role) && (
+          <i
+            className='pi pi-trash cursuer-pointer transition-colors text-red-300 hover:text-red-600 transition-duration-300'
+            onClick={confirm}
+          />
+        )}
       </div>
       {group.registrations.map((registration) => (
         <div className='flex align-items-center mb-3' key={registration._id}>

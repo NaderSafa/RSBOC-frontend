@@ -6,7 +6,7 @@ import { Button } from 'primereact/button'
 import CreateGroup from '../components/create-group.component'
 import server from '../../../server'
 import GroupComponent from '../components/group.component'
-import { ConfirmDialog } from 'primereact/confirmdialog'
+
 const EventManageScreen = () => {
   const { user } = useContext(AuthenticationContext)
   const { state: event } = useLocation()
@@ -34,8 +34,6 @@ const EventManageScreen = () => {
     <>
       {['championship', 'admin'].indexOf(user.role) !== -1 ? (
         <>
-          <ConfirmDialog />
-
           <Container>
             <h2 className='text-lg text-black-alpha-70'>Create a group</h2>
             <div className='flex flex-column md:flex-row justify-content-between align-items-end m-0 p-0'>
