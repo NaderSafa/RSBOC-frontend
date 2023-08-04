@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { confirmDialog } from 'primereact/confirmdialog'
 import server from '../../../server'
 import { AuthenticationContext } from '../../../Auth/authentication.context'
+import { normalizeName } from '../../../components/shared/utils'
 
 const GroupComponent = ({ group, setGroups }) => {
   const { toast, user } = useContext(AuthenticationContext)
@@ -67,7 +68,7 @@ const GroupComponent = ({ group, setGroups }) => {
             }}
           />
           <p className='m-0 p-0 text-sm'>
-            {`${registration.players[0].full_name} - `}
+            {`${normalizeName(registration.players[0].full_name)} - `}
           </p>
           <div
             className={`inline bg-cover bg-center flex align-items-center justify-content-center h-1rem w-1rem border-circle p-2 mx-1`}
@@ -77,7 +78,7 @@ const GroupComponent = ({ group, setGroups }) => {
             }}
           />
           <p className='m-0 p-0 text-sm'>
-            {` ${registration.players[1].full_name} ${
+            {` ${normalizeName(registration.players[1].full_name)} ${
               registration.points ? `(${registration.points})` : ''
             }`}
           </p>

@@ -1,14 +1,7 @@
 import React from 'react'
-import {
-  capitalizeWords,
-  extractNamesFromFullName,
-  removeExtraSpaces,
-} from '../../../components/shared/utils'
+import { normalizeName } from '../../../components/shared/utils'
 
 const Match = ({ match }) => {
-  const normalizeName = (fullName) =>
-    extractNamesFromFullName(capitalizeWords(removeExtraSpaces(fullName)))
-
   return (
     <div className='flex justify-content-between mt-3'>
       <div className=' my-1'>

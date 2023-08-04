@@ -56,6 +56,9 @@ export const extractNamesFromFullName = (fullName) => {
   }
 }
 
+export const normalizeName = (fullName) =>
+  extractNamesFromFullName(capitalizeWords(removeExtraSpaces(fullName)))
+
 // array functions
 export const createNumberSequence = (limit) => {
   const sequence = []
