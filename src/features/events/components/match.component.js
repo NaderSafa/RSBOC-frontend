@@ -6,6 +6,9 @@ import {
 } from '../../../components/shared/utils'
 
 const Match = ({ match }) => {
+  const normalizeName = (fullName) =>
+    extractNamesFromFullName(capitalizeWords(removeExtraSpaces(fullName)))
+
   return (
     <div className='flex justify-content-between mt-3'>
       <div className=' my-1'>
@@ -17,10 +20,8 @@ const Match = ({ match }) => {
               backgroundImage: `url(${match.registration1.players[0].club.image_url})`,
             }}
           />
-          <p className='m-0 p-0 text-sm'>{`${extractNamesFromFullName(
-            capitalizeWords(
-              removeExtraSpaces(match.registration1.players[0].full_name)
-            )
+          <p className='m-0 p-0 text-sm'>{`${normalizeName(
+            match.registration1.players[0].full_name
           )} - `}</p>
           <div
             className={`inline bg-cover bg-center flex align-items-center justify-content-center h-1rem w-1rem border-circle p-2 mx-1`}
@@ -30,10 +31,8 @@ const Match = ({ match }) => {
             }}
           />
 
-          <p className='m-0 p-0 text-sm'>{`${extractNamesFromFullName(
-            capitalizeWords(
-              removeExtraSpaces(match.registration1.players[1].full_name)
-            )
+          <p className='m-0 p-0 text-sm'>{`${normalizeName(
+            match.registration1.players[1].full_name
           )}`}</p>
         </div>
         <div className='flex align-items-center'>
@@ -44,10 +43,8 @@ const Match = ({ match }) => {
               backgroundImage: `url(${match.registration2.players[0].club.image_url})`,
             }}
           />
-          <p className='m-0 p-0 text-sm'>{`${extractNamesFromFullName(
-            capitalizeWords(
-              removeExtraSpaces(match.registration2.players[0].full_name)
-            )
+          <p className='m-0 p-0 text-sm'>{`${normalizeName(
+            match.registration2.players[0].full_name
           )} - `}</p>
           <div
             className={`inline bg-cover bg-center flex align-items-center justify-content-center h-1rem w-1rem border-circle p-2 mx-1`}
@@ -57,10 +54,8 @@ const Match = ({ match }) => {
             }}
           />
 
-          <p className='m-0 p-0 text-sm'>{`${extractNamesFromFullName(
-            capitalizeWords(
-              removeExtraSpaces(match.registration2.players[1].full_name)
-            )
+          <p className='m-0 p-0 text-sm'>{`${normalizeName(
+            match.registration2.players[1].full_name
           )}`}</p>
         </div>
       </div>

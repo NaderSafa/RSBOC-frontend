@@ -282,7 +282,7 @@ const EventScreen = () => {
                   model={items}
                   activeIndex={activeIndex}
                   onTabChange={(e) => setActiveIndex(e.index)}
-                  className='mb-2'
+                  className='mb-2 text-xs lg:text-base'
                 />
                 {items[activeIndex].label === 'Teams' ||
                 items[activeIndex].label === 'Players' ? (

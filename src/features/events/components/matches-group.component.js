@@ -1,40 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import server from '../../../server'
 import Match from './match.component'
 
-const MatchesGroup = ({ groupId, round }) => {
-  const [matches, setMatches] = useState()
-
-  const getMatches = (groupId, round) => {
-    const params = {}
-    if (round) params.round = round
-    if (groupId) params.group = groupId
-
-    server
-      .get('/match', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem(
-            'SPEEDBALL_HUB::TOKEN'
-          )}`,
-        },
-        params: params,
-      })
-      .then((res) => setMatches(res.data.matches))
-      .catch((err) => console.log(err))
-  }
-
+const MatchesGroup = ({ groupId, round, allMatches, loading }) => {
+  const [localMatches, setLocalMatches] = useState()
   useEffect(() => {
-    getMatches(groupId, round)
-  }, [])
-
+    if (!loading && allMatches) {
+      setLocalMatches(
+        allMatches.filter(
+          (match) => match.round === round && match.group._id === groupId
+        )
+      )
+    }
+  }, [loading, allMatches, setLocalMatches, groupId, round])
   return (
     <div className='bg-white my-2 p-2 lg:p-4 border-round-lg'>
-      {matches ? (
+      {!loading && localMatches ? (
         <>
           <div className='flex'></div>
-          <div className='text-xs font-medium'>{matches[0].event.name}</div>
-          <div className='text-xs font-medium'>{`Group ${matches[0].group.name} Round ${round}`}</div>
-          {matches.map((match, idx) => (
+          {/*
+           */}
+          <div className='text-xs font-medium'>
+            {localMatches[0].event.name}
+          </div>
+          <div className='text-xs font-medium'>{`Group ${localMatches[0].group.name} Round ${round}`}</div>
+          {localMatches.map((match, idx) => (
             <Match match={match} key={idx} />
           ))}
         </>
