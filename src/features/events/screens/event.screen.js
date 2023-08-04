@@ -12,6 +12,7 @@ import { Tag } from 'primereact/tag'
 import RegistrationsTable from '../components/registrations.table.component'
 import { TabMenu } from 'primereact/tabmenu'
 import GroupComponent from '../components/group.component'
+import Matches from '../components/matches.component'
 
 const EventScreen = () => {
   const { eventId } = useParams()
@@ -54,8 +55,6 @@ const EventScreen = () => {
   useEffect(() => {
     getGroupsData()
   }, [])
-
-  useEffect(() => console.log(activeIndex), [activeIndex])
 
   useEffect(() => {
     setLoading(true)
@@ -298,6 +297,8 @@ const EventScreen = () => {
                       />
                     ))}
                   </div>
+                ) : items[activeIndex].label === 'Matches' ? (
+                  <Matches groups={groups} />
                 ) : null}
               </Container>
             </div>
