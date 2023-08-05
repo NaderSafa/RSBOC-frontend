@@ -298,7 +298,7 @@ const EventScreen = () => {
                     ))}
                   </div>
                 ) : items[activeIndex].label === 'Matches' ? (
-                  <Matches groups={groups} />
+                  <Matches groups={groups} event={eventDetails} />
                 ) : null}
               </Container>
             </div>

@@ -3,7 +3,7 @@ import server from '../../../server'
 import MatchesGroup from './matches-group.component'
 import { createNumberSequence } from '../../../components/shared/utils'
 
-const Matches = ({ groups }) => {
+const Matches = ({ groups, event }) => {
   const [matches, setMatches] = useState()
   const [loading, setLoading] = useState(true)
 
@@ -51,6 +51,7 @@ const Matches = ({ groups }) => {
                   round={round}
                   allMatches={matches}
                   loading={loading}
+                  event={event}
                 />
               ))}
             </div>
