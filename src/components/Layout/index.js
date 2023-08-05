@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import TopBar from '../../infrastrucrure/layout/components/topbar.component'
 import Warning from '../../infrastrucrure/layout/components/warning.component'
 import SideMenu from '../../infrastrucrure/layout/components/side-menu.component'
@@ -12,26 +12,31 @@ const MainLayout = () => {
 
   const { user, isProfileComplete } = useContext(AuthenticationContext)
 
+  const navigate = useNavigate()
   const PLAYER_MENU_ITEMS = [
     {
       label: 'Dashboard',
       icon: 'pi pi-home',
       to: '/',
+      command: () => navigate('/'),
     },
     {
       label: 'Profile',
       icon: 'pi pi-user',
       to: '/profile',
+      command: () => navigate('/profile'),
     },
     {
       label: 'Players',
       icon: 'pi pi-users',
       to: '/players',
+      command: () => navigate('/players'),
     },
     {
       label: 'Championships',
       icon: 'pi pi-sitemap',
       to: '/championships',
+      command: () => navigate('/championships'),
     },
   ]
 
@@ -40,11 +45,13 @@ const MainLayout = () => {
       label: 'Dashboard',
       icon: 'pi pi-home',
       to: '/champ',
+      command: () => navigate('/champ'),
     },
     {
       label: 'Profile',
       icon: 'pi pi-user',
       to: '/profile',
+      command: () => navigate('/profile'),
     },
   ]
 
