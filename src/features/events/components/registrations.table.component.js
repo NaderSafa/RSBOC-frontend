@@ -37,7 +37,6 @@ const RegistrationsTable = ({ eventId, event }) => {
         },
         params: {
           event: eventId,
-          approved: false,
         },
       })
       .then((res) => {
@@ -272,6 +271,19 @@ const RegistrationsTable = ({ eventId, event }) => {
           // sortable
           // filterElement={moleculeFilterElement}
         />
+
+        {['championship', 'admin'].includes(user.role) && (
+          <Column
+            header='Player 1 Phone'
+            field={(data) => data.players[0].phone_number}
+          />
+        )}
+        {['championship', 'admin'].includes(user.role) && (
+          <Column
+            header='Player 2 Phone'
+            field={(data) => data.players[1].phone_number}
+          />
+        )}
         {user.role === 'championship' ? (
           <Column
             header='Points'
