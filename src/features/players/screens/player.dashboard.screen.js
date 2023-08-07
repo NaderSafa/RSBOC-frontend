@@ -11,7 +11,8 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { AuthenticationContext } from '../../../Auth/authentication.context'
 
 const PlayerDashboard = () => {
-  const [events, setEvents] = useState([])
+  const [events, setUpcomingEvents] = useState([])
+  const [latestEvents, setLatestEvents] = useState([])
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(true)
   const [selectedEvent, setSelectedEvent] = useState()
@@ -31,7 +32,17 @@ const PlayerDashboard = () => {
       })
       .then((res) => {
         setLoading(false)
-        setEvents(res.data.events)
+        setUpcomingEvents(
+          res.data.events.filter(
+            (event) => new Date(event.dates[0]) > Date.now()
+          )
+        )
+        setLatestEvents(
+          res.data.events.filter(
+            (event) =>
+              new Date(event.dates[event.dates.length - 1]) < Date.now()
+          )
+        )
       })
       .catch((e) => {
         setLoading(false)
@@ -91,9 +102,20 @@ const PlayerDashboard = () => {
     }
   }
 
-  const header = () => (
+  const upcomingHeader = () => (
     <div className='flex flex-wrap align-items-center justify-content-between gap-2'>
       <span className='text-xl text-700 font-bold'>Upcoming Events</span>
+      <i
+        className={`pi pi-${
+          loading ? 'spin pi-spinner' : 'refresh text-red-300'
+        } cursor-pointer`}
+        onClick={() => setRefresh((prevState) => !prevState)}
+      />
+    </div>
+  )
+  const latestHeader = () => (
+    <div className='flex flex-wrap align-items-center justify-content-between gap-2'>
+      <span className='text-xl text-700 font-bold'>Latest Events</span>
       <i
         className={`pi pi-${
           loading ? 'spin pi-spinner' : 'refresh text-red-300'
@@ -109,13 +131,13 @@ const PlayerDashboard = () => {
 
   return (
     <>
-      {user.role === 'player' ? (
+      {['player', 'championship'].includes(user.role) ? (
         <>
           <Container className='w-full lg:py-5'>
             <DataTable
               dataKey='_id'
               value={events}
-              header={header}
+              header={upcomingHeader}
               loading={loading}
               tableStyle={{ minWidth: '45rem' }}
               size='small'
@@ -151,9 +173,46 @@ const PlayerDashboard = () => {
               <Column header='Status' body={statusBodyTemplate} />
             </DataTable>
           </Container>
+          <Container className='w-full lg:py-5 mt-2'>
+            <DataTable
+              dataKey='_id'
+              value={latestEvents}
+              header={latestHeader}
+              loading={loading}
+              tableStyle={{ minWidth: '45rem' }}
+              size='small'
+              onRowSelect={onRowSelect}
+              selectionMode='single'
+              selection={selectedEvent}
+              onSelectionChange={(e) => setSelectedEvent(e.value)}
+            >
+              <Column
+                field='tournament.short_name'
+                header='Tournament'
+                sortable
+              />
+              <Column field='name' header='Event' sortable />
+              <Column field='event_type.head' header='Type' />
+              <Column
+                field='gender'
+                header='Gender'
+                body={genderBodyTemplate}
+              />
+              <Column field='event_type.tournament_format' header='Format' />
+              <Column
+                field='age_limit'
+                header='Age Limit'
+                body={ageLimitBodyTemplate}
+              />
+              <Column
+                field='dates'
+                sortable
+                header='Dates'
+                body={priceBodyTemplate}
+              />
+            </DataTable>
+          </Container>
         </>
-      ) : user.role === 'championship' ? (
-        <Navigate to='champ' />
       ) : (
         ''
       )}

@@ -44,8 +44,8 @@ const Match = ({ match, event }) => {
 
   const addSet = () => {
     if (
-      event.event_type.best_of[1] === 0 &&
-      sets.length < event.event_type.best_of[0]
+      event?.event_type?.best_of[1] === 0 &&
+      sets.length < event?.event_type?.best_of[0]
     ) {
       setSets((prevState) =>
         [
@@ -61,7 +61,7 @@ const Match = ({ match, event }) => {
       toast.current.show({
         severity: 'error',
         summary: 'Error',
-        detail: `This match is best of ${event.event_type.best_of[0]}`,
+        detail: `This match is best of ${event?.event_type?.best_of[0]}`,
       })
     }
   }
@@ -83,8 +83,8 @@ const Match = ({ match, event }) => {
   const updateMatch = () => {
     let pointsError = ''
     const limits = [
-      event.event_type.points_per_set,
-      event.event_type.points_per_set + event.event_type.tie_breaks,
+      event?.event_type?.points_per_set,
+      event?.event_type?.points_per_set + event?.event_type?.tie_breaks,
     ]
     const setsCount = [0, 0]
     sets.forEach((set) => {
@@ -101,10 +101,10 @@ const Match = ({ match, event }) => {
         }
         if (
           set.registration1_score - set.registration2_score < 2 &&
-          event.event_type.tie_breaks !== 0 &&
+          event?.event_type?.tie_breaks !== 0 &&
           set.registration1_score !== limits[1]
         ) {
-          pointsError = 'There must be at least 2 poins difference in each set'
+          pointsError = 'There must be at least 2 points difference in each set'
           return
         }
         setsCount[0] = setsCount[0] + 1
@@ -118,10 +118,10 @@ const Match = ({ match, event }) => {
         }
         if (
           set.registration2_score - set.registration1_score < 2 &&
-          event.event_type.tie_breaks !== 0 &&
+          event?.event_type?.tie_breaks !== 0 &&
           set.registration2_score !== limits[1]
         ) {
-          pointsError = 'There must be at least 2 poins difference in each set'
+          pointsError = 'There must be at least 2 points difference in each set'
           return
         }
         setsCount[1] = setsCount[1] + 1

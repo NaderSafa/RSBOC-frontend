@@ -13,6 +13,7 @@ import RegistrationsTable from '../components/registrations.table.component'
 import { TabMenu } from 'primereact/tabmenu'
 import GroupComponent from '../components/group.component'
 import Matches from '../components/matches.component'
+import Groups from '../components/groups.component'
 
 const EventScreen = () => {
   const { eventId } = useParams()
@@ -34,7 +35,7 @@ const EventScreen = () => {
         eventDetails?.event_type?.players_per_event === 1 ? 'Players' : 'Teams',
       icon: 'pi pi-fw pi-users',
     },
-    { label: 'Groups', icon: 'pi pi-fw pi-sitemap' },
+    { label: 'Standings', icon: 'pi pi-fw pi-sitemap' },
     { label: 'Matches', icon: 'pi pi-fw pi-star' },
   ]
   const [groups, setGroups] = useState([])
@@ -277,25 +278,27 @@ const EventScreen = () => {
 
           <div className='flex-column-reverse flex lg:gap-2 lg:flex-row lg:grid mt-2'>
             <div className='lg:col-9 lg:p-0'>
-              <Container className=' mt-2'>
+              <Container className='mt-2'>
                 <TabMenu
                   model={items}
                   activeIndex={activeIndex}
                   onTabChange={(e) => setActiveIndex(e.index)}
-                  className='mb-2 text-xs lg:text-base'
+                  className='mb-2 text-xs md:text-base'
                 />
                 {items[activeIndex].label === 'Teams' ||
                 items[activeIndex].label === 'Players' ? (
                   <RegistrationsTable eventId={eventId} event={eventDetails} />
-                ) : items[activeIndex].label === 'Groups' ? (
-                  <div className='grid'>
-                    {groups.map((group) => (
-                      <GroupComponent
-                        key={group._id}
-                        group={group}
-                        setGroups={setGroups}
-                      />
-                    ))}
+                ) : items[activeIndex].label === 'Standings' ? (
+                  <div>
+                    <Groups event={eventDetails} />
+                    {false &&
+                      groups.map((group) => (
+                        <GroupComponent
+                          key={group._id}
+                          group={group}
+                          setGroups={setGroups}
+                        />
+                      ))}
                   </div>
                 ) : items[activeIndex].label === 'Matches' ? (
                   <Matches groups={groups} event={eventDetails} />
