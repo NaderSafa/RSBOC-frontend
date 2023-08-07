@@ -7,6 +7,7 @@ import server from '../../../server'
 const Match = ({ match, event }) => {
   const { user, toast } = useContext(AuthenticationContext)
 
+  const [loading, setLoading] = useState(false)
   const [sets, setSets] = useState(
     match?.sets?.length > 0
       ? match.sets
@@ -145,7 +146,7 @@ const Match = ({ match, event }) => {
       })
       return
     }
-
+    setLoading(true)
     server
       .patch(
         `/match/${match._id}`,
@@ -158,14 +159,16 @@ const Match = ({ match, event }) => {
           },
         }
       )
-      .then((res) =>
+      .then((res) => {
+        setLoading(false)
         toast.current.show({
           severity: 'success',
           summary: 'Success',
           detail: res.data.message,
         })
-      )
+      })
       .catch((err) => {
+        setLoading(false)
         setSets(err.response.data.sets)
         toast.current.show({
           severity: 'error',
@@ -238,7 +241,9 @@ const Match = ({ match, event }) => {
             </div>
             <div className='bg-green-300 text-white p-2 text-xs border-circle'>
               <i
-                className='pi pi-check text-xs cursor-pointer'
+                className={`pi pi-${
+                  loading ? 'spin pi-spinner' : 'check'
+                } text-xs cursor-pointer`}
                 onClick={updateMatch}
               />
             </div>
