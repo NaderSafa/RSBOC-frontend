@@ -65,7 +65,8 @@ const LoginScreen = () => {
           />
         </form>
         <p className='text-center text-sm mt-5'>
-          Don't have an account? <CustomLink to='/register'>Sign up</CustomLink>
+          Don't have an account?{' '}
+          <CustomLink to='/register'>Register</CustomLink>
           <br />
           <b>or</b>
           <br />
