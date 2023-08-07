@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import AuthInput from '../components/auth-input.component'
 import { AuthenticationContext } from '../../../Auth/authentication.context'
 import AuthContainer from '../containers/auth.container'
+import CustomLink from '../../../components/shared/custom-link.component'
 
 const RegisterScreen = () => {
   const [fullName, setFullName] = useState('')
@@ -81,10 +82,7 @@ const RegisterScreen = () => {
           />
         </form>
         <p className='text-center text-sm mt-5'>
-          Already have an account?{' '}
-          <Link className='font-medium' to='/login'>
-            Login
-          </Link>
+          Already have an account? <CustomLink to='/login'>Login</CustomLink>
         </p>
       </div>
     </AuthContainer>

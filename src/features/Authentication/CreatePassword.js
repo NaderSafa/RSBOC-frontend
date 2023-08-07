@@ -10,6 +10,7 @@ import { useFormik } from 'formik'
 import { Link, useSearchParams, Navigate } from 'react-router-dom'
 
 import AuthFormsLayout from '../Layout/AuthFormsLayout'
+import CustomLink from '../../components/shared/custom-link.component'
 
 const CreatePassword = (props) => {
   const { onVerify, user, error } = useContext(AuthenticationContext)
@@ -140,9 +141,7 @@ const CreatePassword = (props) => {
           <div className='mt-2 text-center'>
             <p>
               Already have an account ?
-              <Link to='/login' className='fw-medium text-primary'>
-                &nbsp;Login
-              </Link>
+              <CustomLink to='/login'>&nbsp;Login</CustomLink>
             </p>
           </div>
           {/* <LoggedOutFooter /> */}

@@ -12,6 +12,7 @@ import { Link, useSearchParams, Navigate } from 'react-router-dom'
 
 import LoggedOutFooter from '../Layout/LoggedOutFooter'
 import AuthFormsLayout from '../Layout/AuthFormsLayout'
+import CustomLink from '../../components/shared/custom-link.component'
 
 const ChangePassword = (props) => {
   const { user, error, onChangePassword, toastStatus } = useContext(
@@ -151,9 +152,9 @@ const ChangePassword = (props) => {
           <div className='mt-2 text-center'>
             <p>
               Already have an account ?
-              <Link to='/login' className='fw-medium text-primary'>
+              <CustomLink to='/login' className='fw-medium text-primary'>
                 &nbsp;Login
-              </Link>
+              </CustomLink>
             </p>
           </div>
           {/* <LoggedOutFooter /> */}

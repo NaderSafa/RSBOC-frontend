@@ -67,8 +67,18 @@ const AuthContainer = ({ children }) => {
             </div>
             {children}
             <div className='mt-2'>
-              <p className='text-center text-sm mb-0'>
-                &copy; {new Date().getFullYear()} - Speedball Hub
+              <p className='text-center text-xs mb-0'>
+                Developed by{' '}
+                <a
+                  href='https://www.linkedin.com/in/nader-safa-879495143/'
+                  target='_blank'
+                  rel='noreferrer'
+                  className='text-black-alpha-60 font-semibold transition-colors transition-duration-300 hover:text-red-400'
+                >
+                  Nader Safa
+                </a>{' '}
+                &copy;{new Date().getFullYear()} Speedball Hub - All Rights
+                Reserved
               </p>
             </div>
           </div>

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import AuthInput from '../components/auth-input.component'
 import { AuthenticationContext } from '../../../Auth/authentication.context'
 import AuthContainer from '../containers/auth.container'
+import CustomLink from '../../../components/shared/custom-link.component'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
@@ -64,19 +65,13 @@ const LoginScreen = () => {
           />
         </form>
         <p className='text-center text-sm mt-5'>
-          Don't have an account?{' '}
-          <Link className='font-medium' to='/register'>
-            Sign up
-          </Link>
+          Don't have an account? <CustomLink to='/register'>Sign up</CustomLink>
           <br />
           <b>or</b>
           <br />
-          <Link
-            className='font-medium text-center text-sm '
-            to='/forgot-password'
-          >
+          <CustomLink className='text-center' to='/forgot-password'>
             Forgot your password?
-          </Link>
+          </CustomLink>
         </p>
       </div>
     </AuthContainer>
