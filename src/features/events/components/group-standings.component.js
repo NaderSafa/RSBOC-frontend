@@ -109,8 +109,8 @@ const GroupStandings = ({ groupName, event, group }) => {
       <DataTable
         ref={dt}
         value={group}
-        paginator
-        paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown'
+        // paginator
+        // paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown'
         rowsPerPageOptions={[5, 10, 25, 50]}
         dataKey='_id'
         globalFilterFields={['players', 'players[1].full_name']}
@@ -120,12 +120,12 @@ const GroupStandings = ({ groupName, event, group }) => {
         sortOrder={state.sortOrder}
         rows={state.rows}
         first={state.first}
-        onPage={(e) => setState(e)}
+        // onPage={(e) => setState(e)}
         onSort={(e) => setState(e)}
         onFilter={(e) => setState(e)}
         size='small'
         exportFilename={`${event.name} - Group ${groupName}`}
-        paginatorClassName='text-xs p-0 m-0 bg-transparent border-0'
+        // paginatorClassName='text-xs p-0 m-0 bg-transparent border-0'
       >
         <Column
           header='Player 1'
