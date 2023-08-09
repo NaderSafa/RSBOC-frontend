@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Match from './match.component'
+import Loading from '../../../components/shared/loading.component'
 
 const MatchesGroup = ({ groupId, round, allMatches, loading, event }) => {
   const [localMatches, setLocalMatches] = useState()
@@ -26,7 +27,7 @@ const MatchesGroup = ({ groupId, round, allMatches, loading, event }) => {
             />
             <div>
               <p className='text-xs font-medium m-0 p-0'>{event.name}</p>
-              <p className='text-xs font-medium m-0 p-0'>{`Group ${localMatches[0].group.name} Round ${round}`}</p>
+              <p className='text-xs font-medium m-0 p-0'>{`Group ${localMatches[0]?.group?.name} Round ${round}`}</p>
             </div>
           </div>
           {/*
@@ -36,9 +37,7 @@ const MatchesGroup = ({ groupId, round, allMatches, loading, event }) => {
           ))}
         </>
       ) : (
-        <div className='flex align-items-center justify-content-center'>
-          <i className='pi pi-spin pi-spinner p-5 text-red-400' />
-        </div>
+        <Loading />
       )}
     </div>
   )
