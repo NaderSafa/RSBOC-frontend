@@ -5,6 +5,7 @@ import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
+import { formatDate } from '../../../components/shared/utils'
 
 import MainContentLayout from '../../../components/Layout/MainContentLayout'
 import { InputFieldTemplate } from '../../../components/shared/FilterTemplates'
@@ -186,6 +187,14 @@ const RegistrationsTable = ({ eventId, event }) => {
     console.log(e)
   }
 
+  const preferredDatesBody = (e) => (
+    <>
+      {e.preferred_dates.map((date, idx) => (
+        <span key={idx}>{formatDate(date)}, </span>
+      ))}
+    </>
+  )
+
   const onCellEditComplete = (e) => {
     let { rowData, newValue, field, originalEvent: event } = e
     if (newValue > 0) {
@@ -284,7 +293,14 @@ const RegistrationsTable = ({ eventId, event }) => {
             field={(data) => data.players[1].phone_number}
           />
         )}
-        {user.role === 'championship' ? (
+        {['championship', 'admin'].includes(user.role) && (
+          <Column
+            header='Preferred Dates'
+            field='preferred_dates'
+            body={preferredDatesBody}
+          />
+        )}
+        {['championship', 'admin'].includes(user.role) ? (
           <Column
             header='Points'
             field='points'
