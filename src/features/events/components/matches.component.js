@@ -16,6 +16,9 @@ const Matches = ({ groups, event }) => {
             'SPEEDBALL_HUB::TOKEN'
           )}`,
         },
+        params: {
+          event: event._id,
+        },
       })
       .then((res) => {
         setMatches(res.data.matches)
