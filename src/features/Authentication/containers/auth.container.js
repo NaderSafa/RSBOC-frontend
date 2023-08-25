@@ -60,8 +60,8 @@ const AuthContainer = ({ children }) => {
           <Navigate to='/' />
         )
       ) : (
-        <div className='grid h-screen w-screen m-0'>
-          <div className='flex flex-column justify-content-between col-12 md:col-6 lg:col-4 h-screen p-5 bg-white overflow-hidden'>
+        <div className='grid h-screen w-screen m-0 overflow-hidden'>
+          <div className='flex z-5 flex-column justify-content-between col-12 md:col-6 lg:col-4 h-screen p-5 bg-white overflow-hidden'>
             <div className='text-center mt-3 mb-4'>
               <Image src={logoHorizontal} width='70%' />
             </div>
@@ -82,7 +82,8 @@ const AuthContainer = ({ children }) => {
               </p>
             </div>
           </div>
-          <div
+          {/*
+<div
             className='hidden md:inline-block col bg-black-alpha-90 h-screen overflow-hidden bg-cover bg-center p-0'
             style={{ backgroundImage: `url(${shownBackground})` }}
           >
@@ -95,6 +96,20 @@ const AuthContainer = ({ children }) => {
                 <br /> we have a place for you.
               </p>
             </div>
+          </div>
+*/}
+          <div
+            className='slide hidden md:inline-block col bg-black-alpha-90 w-full h-screen overflow-hidden bg-cover bg-center p-0'
+            style={{ backgroundImage: `url(${shownBackground})` }}
+          />
+          <div className='fixed-text w-6 lg:w-8 flex flex-column bg-black-alpha-40 col h-screen justify-content-end align-items-center px-5 pt-8 pb-3'>
+            <h1 className='text-3xl text-center font-bold text-white-alpha-90 '>
+              SPEEDBALL LIKE NEVER BEFORE!
+            </h1>
+            <p className='text-center text-white-alpha-70 font-medium mt-1 text-xs'>
+              whether you are a speedball player, coach or spectator.
+              <br /> we have a place for you.
+            </p>
           </div>
         </div>
       )}

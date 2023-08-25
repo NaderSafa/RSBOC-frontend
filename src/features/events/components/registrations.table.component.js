@@ -249,7 +249,9 @@ const RegistrationsTable = ({ eventId, event }) => {
         dataKey='_id'
         removableSort
         globalFilterFields={['players', 'players[1].full_name']}
-        emptyMessage='No order details found.'
+        emptyMessage={`No Registered ${
+          event?.event_type?.players_per_team === 1 ? 'players' : 'teams'
+        } yet.`}
         filters={state.filters}
         sortField={state.sortField}
         sortOrder={state.sortOrder}

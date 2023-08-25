@@ -146,3 +146,80 @@ input[type='file']::file-selector-button:hover {
   .p-menuitem-link:not(.p-disabled):focus {
   box-shadow: none !important;
 }
+
+/* Image slider */
+/* ... Existing CSS ... */
+
+.slider-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.slider {
+  display: flex;
+  width: 1500%; /* Total width should be the number of slides times 100% */
+  animation: slide 45s linear infinite;
+}
+
+.slide {
+  flex: 1;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  animation: zoom 45s alternate infinite;
+  transform-origin: center;
+  transition: background 800ms ease; /* Smooth transition over 0.5 seconds */
+}
+
+.fixed-text {
+  position: absolute;
+  left: 33.33%;
+}
+
+@media only screen and (max-width: 991px) {
+  .fixed-text {
+    left: 50%;
+  }
+}
+
+/* Add the background images for each slide */
+
+/* Add background images for the other slides ... */
+
+@keyframes slide {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  /* Distribute evenly based on the number of slides */
+  6.67%,
+  106.67%,
+  206.67%,
+  306.67%,
+  406.67%,
+  506.67%,
+  606.67%,
+  706.67%,
+  806.67%,
+  906.67%,
+  1006.67%,
+  1106.67%,
+  1206.67%,
+  1306.67%,
+  1406.67% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes zoom {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  33.3% {
+    transform: scale(1.1);
+  }
+  66.6% {
+    transform: scale(1.05);
+  }
+}

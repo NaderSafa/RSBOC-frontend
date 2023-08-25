@@ -22,6 +22,7 @@ import EventRegisterScreen from '../features/events/screens/event.register.scree
 import ForgotPasswordScreen from '../features/Authentication/screens/forgot-password.screen'
 import ChampionshipDashboard from '../features/championships/screens/championship.dashboard.screen'
 import EventManageScreen from '../features/events/screens/event.manage.screen'
+import SingleElimination from '../features/events/components/events/single-elimination.event'
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
               {
                 path: 'events/:eventId/manage',
                 element: <EventManageScreen />,
+              },
+              {
+                path: 'single',
+                element: <SingleElimination />,
               },
             ],
           },

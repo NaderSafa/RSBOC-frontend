@@ -55,9 +55,23 @@ export const extractNamesFromFullName = (fullName) => {
     return fullName
   }
 }
+export const createInitials = (fullName) => {
+  const nameParts = fullName.split(' ')
+
+  if (nameParts.length >= 2) {
+    const firstName = nameParts[0][0]
+    const lastName = nameParts[nameParts.length - 1]
+    return firstName + '. ' + lastName
+  } else {
+    return fullName
+  }
+}
 
 export const normalizeName = (fullName) =>
   extractNamesFromFullName(capitalizeWords(removeExtraSpaces(fullName)))
+
+export const superNormalizeName = (fullName) =>
+  createInitials(capitalizeWords(removeExtraSpaces(fullName)))
 
 // array functions
 export const createNumberSequence = (limit) => {

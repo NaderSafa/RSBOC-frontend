@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
-import server from '../../../server'
 import { FilterMatchMode, FilterOperator } from 'primereact/api'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
-import { InputText } from 'primereact/inputtext'
-import { Button } from 'primereact/button'
 
 import MainContentLayout from '../../../components/Layout/MainContentLayout'
-import { InputFieldTemplate } from '../../../components/shared/FilterTemplates'
 import { Link } from 'react-router-dom'
 import { AuthenticationContext } from '../../../Auth/authentication.context'
-import { InputNumber } from 'primereact/inputnumber'
 import { normalizeName } from '../../../components/shared/utils'
+import server from '../../../server'
 
-const GroupStandings = ({ groupName, event, group }) => {
+const GroupStandings = ({ groupName, event: eventDetails, group }) => {
+  const { toast, user } = useContext(AuthenticationContext)
   const dt = useRef(null)
   const [state, setState] = useState({
     first: 0,
@@ -104,14 +101,74 @@ const GroupStandings = ({ groupName, event, group }) => {
     </Link>
   )
 
+  const qualifiedBodyTemplate = (registration) => (
+    <i
+      className={`pi pi-${
+        registration?.qualified === true ? 'check' : 'times'
+      }-circle`}
+    />
+  )
+
+  const pointsEditor = (options) => {
+    // console.log(options)
+
+    return (
+      <i
+        className={`pi pi-${
+          options?.value === true
+            ? 'check-circle text-green-400'
+            : 'times-circle text-red-400'
+        }`}
+        onClick={() => {
+          options.editorCallback(!options.value)
+        }}
+      />
+    )
+  }
+
+  const onCellEditComplete = (e) => {
+    let { rowData, newValue, field, originalEvent: event } = e
+    // console.log('field ', field, 'rowData ', rowData, 'newValue ', newValue)
+
+    rowData[field] = newValue
+    server
+      .patch(
+        `/registration/${rowData._id}`,
+        {
+          [field]: newValue,
+          qualifiedTo: eventDetails.finals,
+          players: eventDetails,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(
+              'SPEEDBALL_HUB::TOKEN'
+            )}`,
+          },
+        }
+      )
+      .then((res) => {
+        toast.current.show({
+          severity: 'success',
+          summary: 'Qualified',
+          detail: res.data.message,
+        })
+      })
+      .catch((err) =>
+        toast.current.show({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error in updating registration',
+        })
+      )
+    event.preventDefault()
+  }
+
   return (
-    <MainContentLayout dt={dt}>
+    <MainContentLayout dt={dt} title={`Group ${groupName}`}>
       <DataTable
         ref={dt}
         value={group}
-        // paginator
-        // paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown'
-        rowsPerPageOptions={[5, 10, 25, 50]}
         dataKey='_id'
         globalFilterFields={['players', 'players[1].full_name']}
         emptyMessage='No players/teams found.'
@@ -120,12 +177,10 @@ const GroupStandings = ({ groupName, event, group }) => {
         sortOrder={state.sortOrder}
         rows={state.rows}
         first={state.first}
-        // onPage={(e) => setState(e)}
         onSort={(e) => setState(e)}
         onFilter={(e) => setState(e)}
         size='small'
-        exportFilename={`${event.name} - Group ${groupName}`}
-        // paginatorClassName='text-xs p-0 m-0 bg-transparent border-0'
+        exportFilename={`${eventDetails.name} - Group ${groupName}`}
       >
         <Column
           header='Player 1'
@@ -155,7 +210,6 @@ const GroupStandings = ({ groupName, event, group }) => {
           sortable
           headerTooltip='Matches Lost'
         />
-
         <Column
           header='+/-'
           field='sets_difference'
@@ -175,6 +229,15 @@ const GroupStandings = ({ groupName, event, group }) => {
           headerTooltip='Sets Against'
         />
         <Column header='Points' field='group_points' sortable />
+        {['championship', 'admin'].includes(user.role) && (
+          <Column
+            header='Qualified'
+            field='qualified'
+            body={qualifiedBodyTemplate}
+            editor={(options) => pointsEditor(options)}
+            onCellEditComplete={onCellEditComplete}
+          />
+        )}
       </DataTable>
     </MainContentLayout>
   )

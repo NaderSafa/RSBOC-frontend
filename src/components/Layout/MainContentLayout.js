@@ -3,11 +3,11 @@ import { Button } from 'primereact/button'
 import { Toolbar } from 'primereact/toolbar'
 import { ScrollTop } from 'primereact/scrolltop'
 const MainContentLayout = (props) => {
-  useEffect(() => {
-    if (props?.title) {
-      document.title = `${props.title} | Speedball Hub`
-    }
-  }, [props?.title])
+  // useEffect(() => {
+  //   if (props?.title) {
+  //     document.title = `${props.title} | Speedball Hub`
+  //   }
+  // }, [props?.title])
 
   const exportCSV = () => props.dt.current.exportCSV()
 
@@ -25,7 +25,7 @@ const MainContentLayout = (props) => {
   return (
     <div className='page-content'>
       <div className='container-fluid'>
-        <h2 className='fs-3 fw-bold mt-4 mb-4'>{props.title}</h2>
+        <h2 className='text-base mt-4'>{props.title}</h2>
 
         <div>
           <div>
